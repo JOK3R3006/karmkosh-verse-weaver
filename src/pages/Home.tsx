@@ -1,221 +1,290 @@
 
-import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
   ArrowRight, 
+  Play, 
+  Star, 
+  TrendingUp, 
   Users, 
-  DollarSign, 
-  Shield, 
-  Zap, 
-  TrendingUp,
-  Star,
-  CheckCircle,
-  IndianRupee
+  Globe,
+  Shield,
+  Zap,
+  BookOpen,
+  Code,
+  Palette,
+  Briefcase,
+  Camera,
+  Music
 } from "lucide-react";
+import { Link } from "react-router-dom";
 
 export default function Home() {
-  const features = [
+  const featuredProducts = [
     {
-      icon: <DollarSign className="w-6 h-6" />,
-      title: "Multiple Payment Methods",
-      description: "Accept payments via UPI, Razorpay, cards, and international gateways"
+      id: 1,
+      title: "Complete Web Development Bootcamp",
+      creator: "Rohit Sharma",
+      price: 2999,
+      originalPrice: 4999,
+      rating: 4.8,
+      students: 15420,
+      image: "/placeholder.svg",
+      category: "Programming",
+      bestseller: true
     },
     {
-      icon: <Users className="w-6 h-6" />,
-      title: "Community Integration",
-      description: "Automatic Discord & Telegram access management for premium members"
+      id: 2,
+      title: "Digital Marketing Mastery Course",
+      creator: "Priya Singh",
+      price: 1999,
+      originalPrice: 3499,
+      rating: 4.7,
+      students: 8965,
+      image: "/placeholder.svg",
+      category: "Marketing",
+      bestseller: false
     },
     {
-      icon: <Shield className="w-6 h-6" />,
-      title: "Secure & Compliant",
-      description: "GST compliant, secure transactions, and data protection"
-    },
-    {
-      icon: <Zap className="w-6 h-6" />,
-      title: "Instant Delivery",
-      description: "Automated delivery of digital products, licenses, and access"
-    },
-    {
-      icon: <TrendingUp className="w-6 h-6" />,
-      title: "Analytics Dashboard",
-      description: "Track sales, customer behavior, and grow your business"
-    },
-    {
-      icon: <IndianRupee className="w-6 h-6" />,
-      title: "India-First Platform",
-      description: "Built for Indian creators with local payment methods and compliance"
+      id: 3,
+      title: "UI/UX Design Complete Guide",
+      creator: "Anjali Gupta",
+      price: 2499,
+      originalPrice: 3999,
+      rating: 4.9,
+      students: 6543,
+      image: "/placeholder.svg",
+      category: "Design",
+      bestseller: true
     }
   ];
 
-  const testimonials = [
-    {
-      name: "Raj Sharma",
-      role: "Trading Educator",
-      content: "Increased my monthly revenue by 300% with automated course delivery and community management.",
-      rating: 5
-    },
-    {
-      name: "Priya Patel",
-      role: "SaaS Developer",
-      content: "The license key management and subscription handling saved me weeks of development time.",
-      rating: 5
-    },
-    {
-      name: "Arjun Mehta",
-      role: "Digital Marketer",
-      content: "Perfect platform for selling digital products in India. UPI integration is seamless!",
-      rating: 5
-    }
+  const categories = [
+    { icon: Code, name: "Programming", courses: 1250, color: "bg-blue-100 text-blue-600" },
+    { icon: Palette, name: "Design", courses: 890, color: "bg-purple-100 text-purple-600" },
+    { icon: Briefcase, name: "Business", courses: 750, color: "bg-green-100 text-green-600" },
+    { icon: Camera, name: "Photography", courses: 420, color: "bg-yellow-100 text-yellow-600" },
+    { icon: Music, name: "Music", courses: 380, color: "bg-pink-100 text-pink-600" },
+    { icon: BookOpen, name: "Academic", courses: 650, color: "bg-indigo-100 text-indigo-600" }
+  ];
+
+  const stats = [
+    { value: "50,000+", label: "Students Learning" },
+    { value: "5,000+", label: "Expert Instructors" },
+    { value: "15,000+", label: "Courses Available" },
+    { value: "₹100Cr+", label: "Paid to Creators" }
   ];
 
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-br from-purple-50 via-blue-50 to-cyan-50 py-20 lg:py-32">
+      <section className="bg-gradient-to-br from-purple-600 via-blue-600 to-indigo-700 text-white py-20">
         <div className="container mx-auto px-4">
-          <div className="text-center max-w-4xl mx-auto">
-            <Badge variant="secondary" className="mb-4">
-              🇮🇳 Made for Indian Creators
-            </Badge>
-            <h1 className="text-4xl lg:text-6xl font-bold mb-6 bg-gradient-to-r from-purple-600 to-blue-600 bg-clip-text text-transparent">
-              Sell Digital Products Like a Pro
-            </h1>
-            <p className="text-xl text-gray-600 mb-8 max-w-2xl mx-auto">
-              The complete platform for creators to sell courses, software, memberships, and build communities. 
-              With Indian payment methods, automated delivery, and powerful analytics.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" asChild>
-                <Link to="/auth?mode=signup">
-                  Start Selling Now
-                  <ArrowRight className="ml-2 w-5 h-5" />
-                </Link>
-              </Button>
-              <Button size="lg" variant="outline" asChild>
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            <div>
+              <h1 className="text-5xl lg:text-6xl font-bold mb-6 leading-tight">
+                Learn From India's 
+                <span className="text-yellow-300"> Best Creators</span>
+              </h1>
+              <p className="text-xl mb-8 opacity-90">
+                Access thousands of courses, ebooks, and digital products from verified experts. 
+                Start learning today and advance your career.
+              </p>
+              <div className="flex gap-4 mb-8">
                 <Link to="/marketplace">
-                  Browse Products
+                  <Button size="lg" className="bg-white text-purple-600 hover:bg-gray-100 px-8 py-4 text-lg">
+                    Explore Courses
+                    <ArrowRight className="w-5 h-5 ml-2" />
+                  </Button>
                 </Link>
-              </Button>
+                <Link to="/creators">
+                  <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-purple-600 px-8 py-4 text-lg">
+                    <Play className="w-5 h-5 mr-2" />
+                    Become a Creator
+                  </Button>
+                </Link>
+              </div>
+              
+              {/* Stats */}
+              <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+                {stats.map((stat, index) => (
+                  <div key={index} className="text-center">
+                    <div className="text-2xl font-bold">{stat.value}</div>
+                    <div className="text-sm opacity-80">{stat.label}</div>
+                  </div>
+                ))}
+              </div>
             </div>
-            <p className="text-sm text-gray-500 mt-4">
-              Free to start • No setup fees • 2.9% transaction fee
-            </p>
+            
+            <div className="relative">
+              <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 shadow-2xl">
+                <div className="aspect-video bg-gray-800 rounded-lg mb-4 flex items-center justify-center">
+                  <Play className="w-16 h-16 text-white opacity-80" />
+                </div>
+                <h3 className="text-xl font-semibold mb-2">Featured Course Preview</h3>
+                <p className="opacity-80">See what makes our courses special</p>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Features Section */}
-      <section className="py-20 bg-white">
+      {/* Featured Courses */}
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-              Everything You Need to Succeed
-            </h2>
-            <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Built specifically for the Indian market with features that creators actually need
-            </p>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Featured Courses</h2>
+            <p className="text-xl text-gray-600">Handpicked courses from top creators</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {features.map((feature, index) => (
-              <Card key={index} className="text-center hover:shadow-lg transition-shadow">
-                <CardHeader>
-                  <div className="w-12 h-12 bg-gradient-to-r from-purple-500 to-blue-500 rounded-lg flex items-center justify-center text-white mx-auto mb-4">
-                    {feature.icon}
+            {featuredProducts.map((product) => (
+              <Link key={product.id} to={`/product/${product.id}`}>
+                <Card className="hover:shadow-lg transition-shadow cursor-pointer">
+                  <div className="relative">
+                    <div className="aspect-video bg-gray-200 rounded-t-lg flex items-center justify-center">
+                      <Play className="w-12 h-12 text-gray-500" />
+                    </div>
+                    {product.bestseller && (
+                      <Badge className="absolute top-2 left-2 bg-orange-500">
+                        Bestseller
+                      </Badge>
+                    )}
                   </div>
-                  <CardTitle className="text-xl">{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <CardDescription className="text-gray-600">
-                    {feature.description}
-                  </CardDescription>
-                </CardContent>
-              </Card>
+                  <CardHeader>
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <CardTitle className="text-lg mb-2 line-clamp-2">{product.title}</CardTitle>
+                        <CardDescription>by {product.creator}</CardDescription>
+                      </div>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1">
+                        <Star className="w-4 h-4 text-yellow-400 fill-current" />
+                        <span className="text-sm font-medium">{product.rating}</span>
+                      </div>
+                      <span className="text-sm text-gray-500">({product.students.toLocaleString()})</span>
+                    </div>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex items-center justify-between">
+                      <div className="flex items-center gap-2">
+                        <span className="text-xl font-bold">₹{product.price}</span>
+                        <span className="text-sm text-gray-500 line-through">₹{product.originalPrice}</span>
+                      </div>
+                      <Badge variant="secondary">{product.category}</Badge>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+          
+          <div className="text-center mt-8">
+            <Link to="/marketplace">
+              <Button size="lg">
+                View All Courses
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
+          </div>
+        </div>
+      </section>
+
+      {/* Categories */}
+      <section className="py-16 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Popular Categories</h2>
+            <p className="text-xl text-gray-600">Find courses in your area of interest</p>
+          </div>
+          
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
+            {categories.map((category, index) => (
+              <Link key={index} to={`/marketplace?category=${category.name.toLowerCase()}`}>
+                <Card className="text-center hover:shadow-lg transition-shadow cursor-pointer">
+                  <CardContent className="p-6">
+                    <div className={`w-16 h-16 rounded-full ${category.color} flex items-center justify-center mx-auto mb-4`}>
+                      <category.icon className="w-8 h-8" />
+                    </div>
+                    <h3 className="font-semibold mb-2">{category.name}</h3>
+                    <p className="text-sm text-gray-600">{category.courses} courses</p>
+                  </CardContent>
+                </Card>
+              </Link>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Stats Section */}
-      <section className="py-20 bg-gray-50">
+      {/* Why Choose KarmKosh */}
+      <section className="py-16 bg-gray-50">
         <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-            <div className="text-center">
-              <div className="text-4xl font-bold text-purple-600 mb-2">₹50L+</div>
-              <div className="text-gray-600">Revenue Generated</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-purple-600 mb-2">1000+</div>
-              <div className="text-gray-600">Active Creators</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-purple-600 mb-2">50K+</div>
-              <div className="text-gray-600">Products Sold</div>
-            </div>
-            <div className="text-center">
-              <div className="text-4xl font-bold text-purple-600 mb-2">99.9%</div>
-              <div className="text-gray-600">Uptime</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-              Loved by Creators Across India
-            </h2>
-            <p className="text-xl text-gray-600">
-              See what successful creators are saying about our platform
-            </p>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold mb-4">Why Choose KarmKosh?</h2>
+            <p className="text-xl text-gray-600">The best platform for learning and teaching in India</p>
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="hover:shadow-lg transition-shadow">
-                <CardContent className="pt-6">
-                  <div className="flex mb-4">
-                    {[...Array(testimonial.rating)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 fill-yellow-400 text-yellow-400" />
-                    ))}
-                  </div>
-                  <p className="text-gray-600 mb-4">"{testimonial.content}"</p>
-                  <div>
-                    <div className="font-semibold">{testimonial.name}</div>
-                    <div className="text-sm text-gray-500">{testimonial.role}</div>
-                  </div>
-                </CardContent>
-              </Card>
-            ))}
+            <Card className="text-center">
+              <CardHeader>
+                <div className="w-16 h-16 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Globe className="w-8 h-8 text-blue-600" />
+                </div>
+                <CardTitle>Learn Anywhere</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600">Access your courses on any device, anytime, anywhere. Download for offline learning.</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="text-center">
+              <CardHeader>
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Shield className="w-8 h-8 text-green-600" />
+                </div>
+                <CardTitle>Verified Creators</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600">All our instructors are verified experts with proven track records in their fields.</p>
+              </CardContent>
+            </Card>
+            
+            <Card className="text-center">
+              <CardHeader>
+                <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Zap className="w-8 h-8 text-purple-600" />
+                </div>
+                <CardTitle>Interactive Learning</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-600">Engage with quizzes, assignments, and community discussions for better learning outcomes.</p>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
+      {/* Creator CTA */}
+      <section className="py-16 bg-gradient-to-r from-purple-600 to-blue-600 text-white">
         <div className="container mx-auto px-4 text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold mb-4">
-            Ready to Start Your Creator Journey?
-          </h2>
-          <p className="text-xl mb-8 opacity-90 max-w-2xl mx-auto">
-            Join thousands of successful creators who are building sustainable businesses with our platform
+          <h2 className="text-3xl font-bold mb-4">Become a Creator Today</h2>
+          <p className="text-xl mb-8 opacity-90">
+            Share your knowledge with millions of learners and earn 90% of every sale
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" variant="secondary" asChild>
-              <Link to="/auth?mode=signup">
-                Get Started for Free
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Link>
-            </Button>
-            <Button size="lg" variant="outline" className="text-white border-white hover:bg-white hover:text-purple-600" asChild>
-              <Link to="/contact">
-                Talk to Sales
-              </Link>
-            </Button>
+          <div className="flex gap-4 justify-center">
+            <Link to="/creators">
+              <Button size="lg" variant="secondary" className="px-8 py-4 text-lg">
+                Start Teaching
+                <ArrowRight className="w-5 h-5 ml-2" />
+              </Button>
+            </Link>
+            <Link to="/pricing">
+              <Button size="lg" variant="outline" className="px-8 py-4 text-lg text-white border-white hover:bg-white hover:text-purple-600">
+                View Creator Plans
+              </Button>
+            </Link>
           </div>
         </div>
       </section>
