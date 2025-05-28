@@ -1,8 +1,9 @@
+
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { Layout } from "./components/layout/Layout";
 import Home from "./pages/Home";
 import Marketplace from "./pages/Marketplace";
@@ -27,6 +28,7 @@ const App = () => (
           <Route path="/auth" element={<Auth />} />
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
+            <Route path="home" element={<Navigate to="/" replace />} />
             <Route path="marketplace" element={<Marketplace />} />
             <Route path="pricing" element={<Pricing />} />
             <Route path="creators" element={<Creators />} />
@@ -35,8 +37,8 @@ const App = () => (
             <Route path="create-product" element={<CreateProduct />} />
             <Route path="product/:id" element={<ProductDetail />} />
           </Route>
-          {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
-          <Route path="*" element={<NotFound />} />
+          {/* Catch all unknown routes and redirect to home */}
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </BrowserRouter>
     </TooltipProvider>
