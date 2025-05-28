@@ -13,7 +13,7 @@ export function Footer() {
               <div className="w-8 h-8 bg-gradient-to-r from-purple-600 to-blue-600 rounded-lg flex items-center justify-center">
                 <Store className="w-5 h-5 text-white" />
               </div>
-              <span className="font-bold text-xl">MarketPlace</span>
+              <span className="font-bold text-xl">KarmKosh</span>
             </Link>
             <p className="text-gray-600 text-sm">
               The ultimate platform for creators to sell digital products and build communities.
@@ -67,7 +67,7 @@ export function Footer() {
 
         <div className="border-t mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
           <p className="text-gray-600 text-sm">
-            © 2024 MarketPlace. All rights reserved.
+            © 2024 KarmKosh. All rights reserved.
           </p>
           <div className="flex items-center space-x-4 mt-4 md:mt-0">
             <span className="text-sm text-gray-600">Made in India 🇮🇳</span>
