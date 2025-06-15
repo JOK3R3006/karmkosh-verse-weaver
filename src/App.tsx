@@ -15,6 +15,7 @@ import Creators from "./pages/Creators";
 import CreateProduct from "./pages/CreateProduct";
 import CreatorDashboard from "./pages/CreatorDashboard";
 import ProductDetail from "./pages/ProductDetail";
+import ForgotPassword from "./pages/ForgotPassword";
 
 const queryClient = new QueryClient();
 
@@ -26,6 +27,7 @@ const App = () => (
       <BrowserRouter>
         <Routes>
           <Route path="/auth" element={<Auth />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="home" element={<Navigate to="/" replace />} />
