@@ -1,9 +1,13 @@
 
 import { Check } from "lucide-react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 
 export default function Pricing() {
+  const [showCreatorDialog, setShowCreatorDialog] = useState(false);
+
   const plans = [
     {
       name: "Free",
@@ -25,7 +29,7 @@ export default function Pricing() {
       period: "/month",
       description: "For serious creators",
       features: [
-        "8% commission on sales",
+        "10% commission on sales",
         "Advanced analytics",
         "Priority support",
         "File hosting up to 10GB",
@@ -42,7 +46,7 @@ export default function Pricing() {
       period: "/month",
       description: "For established businesses",
       features: [
-        "6% commission on sales",
+        "10% commission on sales",
         "Full analytics suite",
         "24/7 dedicated support",
         "Unlimited file hosting",
@@ -55,6 +59,15 @@ export default function Pricing() {
       popular: false
     }
   ];
+
+  const handlePlanClick = (planName: string) => {
+    if (planName === "Creator") {
+      setShowCreatorDialog(true);
+    } else {
+      // Handle other plan selections
+      console.log(`Selected plan: ${planName}`);
+    }
+  };
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 py-12">
@@ -96,6 +109,7 @@ export default function Pricing() {
                 <Button 
                   className={`w-full ${plan.popular ? 'bg-purple-600 hover:bg-purple-700' : ''}`}
                   variant={plan.popular ? 'default' : 'outline'}
+                  onClick={() => handlePlanClick(plan.name)}
                 >
                   {plan.cta}
                 </Button>
@@ -113,6 +127,47 @@ export default function Pricing() {
           </p>
         </div>
       </div>
+
+      <Dialog open={showCreatorDialog} onOpenChange={setShowCreatorDialog}>
+        <DialogContent className="max-w-md">
+          <DialogHeader>
+            <DialogTitle>Welcome to Creator Plan!</DialogTitle>
+            <DialogDescription>
+              You're about to unlock powerful tools for your creator journey.
+            </DialogDescription>
+          </DialogHeader>
+          <div className="space-y-4">
+            <div className="space-y-3">
+              <div className="flex items-center space-x-2">
+                <Check className="w-4 h-4 text-green-500" />
+                <span className="text-sm">Account setup completed</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Check className="w-4 h-4 text-green-500" />
+                <span className="text-sm">Payment processing enabled</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Check className="w-4 h-4 text-green-500" />
+                <span className="text-sm">Analytics dashboard ready</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Check className="w-4 h-4 text-green-500" />
+                <span className="text-sm">10% commission rate applied</span>
+              </div>
+              <div className="flex items-center space-x-2">
+                <Check className="w-4 h-4 text-green-500" />
+                <span className="text-sm">Course builder activated</span>
+              </div>
+            </div>
+            <Button 
+              className="w-full bg-purple-600 hover:bg-purple-700"
+              onClick={() => setShowCreatorDialog(false)}
+            >
+              Continue
+            </Button>
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
