@@ -60,6 +60,16 @@ export default function Pricing() {
     }
   ];
 
+  const creatorPlanFeatures = [
+    "10% commission on sales",
+    "Advanced analytics",
+    "Priority support", 
+    "File hosting up to 10GB",
+    "Advanced course builder",
+    "Custom landing pages",
+    "Email marketing tools"
+  ];
+
   const handlePlanClick = (planName: string) => {
     if (planName === "Creator") {
       setShowCreatorDialog(true);
@@ -131,39 +141,30 @@ export default function Pricing() {
       <Dialog open={showCreatorDialog} onOpenChange={setShowCreatorDialog}>
         <DialogContent className="max-w-md">
           <DialogHeader>
-            <DialogTitle>Welcome to Creator Plan!</DialogTitle>
+            <DialogTitle>Creator Plan Features</DialogTitle>
             <DialogDescription>
-              You're about to unlock powerful tools for your creator journey.
+              Here's everything included in your Creator plan subscription.
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-4">
             <div className="space-y-3">
-              <div className="flex items-center space-x-2">
-                <Check className="w-4 h-4 text-green-500" />
-                <span className="text-sm">Account setup completed</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Check className="w-4 h-4 text-green-500" />
-                <span className="text-sm">Payment processing enabled</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Check className="w-4 h-4 text-green-500" />
-                <span className="text-sm">Analytics dashboard ready</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Check className="w-4 h-4 text-green-500" />
-                <span className="text-sm">10% commission rate applied</span>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Check className="w-4 h-4 text-green-500" />
-                <span className="text-sm">Course builder activated</span>
-              </div>
+              {creatorPlanFeatures.map((feature, index) => (
+                <div key={index} className="flex items-center space-x-2">
+                  <Check className="w-4 h-4 text-green-500" />
+                  <span className="text-sm">{feature}</span>
+                </div>
+              ))}
+            </div>
+            <div className="pt-2 border-t">
+              <p className="text-sm text-gray-600 mb-3">
+                Monthly subscription: <span className="font-semibold">₹999/month</span>
+              </p>
             </div>
             <Button 
               className="w-full bg-purple-600 hover:bg-purple-700"
               onClick={() => setShowCreatorDialog(false)}
             >
-              Continue
+              Start Creating
             </Button>
           </div>
         </DialogContent>
