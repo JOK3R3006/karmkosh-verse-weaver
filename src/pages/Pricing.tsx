@@ -1,3 +1,4 @@
+
 import { Check } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -101,11 +102,11 @@ export default function Pricing() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 py-12">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-pink-950 py-12">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold mb-4">Simple, Transparent Pricing</h1>
-          <p className="text-xl text-gray-600 mb-8">
+          <h1 className="text-4xl font-bold mb-4 text-white">Simple, Transparent Pricing</h1>
+          <p className="text-xl text-gray-300 mb-8">
             Choose the plan that works best for your creator journey
           </p>
         </div>
@@ -114,28 +115,28 @@ export default function Pricing() {
           {plans.map((plan, index) => (
             <Card 
               key={index} 
-              className="relative cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl hover:border-purple-500 hover:border-2 hover:shadow-purple-200"
+              className="relative cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl hover:border-pink-500 hover:border-2 hover:shadow-pink-500/20 bg-gray-900/80 border-gray-700 backdrop-blur-sm"
               onClick={() => handlePlanClick(plan.name)}
             >
               <CardHeader className="text-center">
-                <CardTitle className="text-2xl">{plan.name}</CardTitle>
+                <CardTitle className="text-2xl text-white">{plan.name}</CardTitle>
                 <div className="flex items-baseline justify-center">
-                  <span className="text-4xl font-bold">{plan.price}</span>
-                  {plan.period && <span className="text-gray-500 ml-1">{plan.period}</span>}
+                  <span className="text-4xl font-bold text-white">{plan.price}</span>
+                  {plan.period && <span className="text-gray-400 ml-1">{plan.period}</span>}
                 </div>
-                <CardDescription>{plan.description}</CardDescription>
+                <CardDescription className="text-gray-300">{plan.description}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="mb-6 text-center">
-                  <p className="text-sm text-gray-600 mb-2">Click to see all features</p>
+                  <p className="text-sm text-gray-400 mb-2">Click to see all features</p>
                   <div className="flex justify-center space-x-1">
-                    <div className="w-2 h-2 bg-purple-300 rounded-full"></div>
-                    <div className="w-2 h-2 bg-purple-300 rounded-full"></div>
-                    <div className="w-2 h-2 bg-purple-300 rounded-full"></div>
+                    <div className="w-2 h-2 bg-pink-400 rounded-full"></div>
+                    <div className="w-2 h-2 bg-pink-400 rounded-full"></div>
+                    <div className="w-2 h-2 bg-pink-400 rounded-full"></div>
                   </div>
                 </div>
                 <Button 
-                  className="w-full"
+                  className="w-full border-pink-500/50 text-pink-200 hover:bg-pink-500/20 hover:text-white hover:border-pink-400"
                   variant="outline"
                 >
                   {plan.cta}
@@ -146,10 +147,10 @@ export default function Pricing() {
         </div>
 
         <div className="text-center mt-12">
-          <p className="text-gray-600 mb-4">
+          <p className="text-gray-300 mb-4">
             All plans include secure payments, instant payouts, and our creator community
           </p>
-          <p className="text-xs text-gray-400 opacity-75">
+          <p className="text-xs text-gray-500 opacity-75">
             * Small platform fee on successful sales. No hidden fees or setup costs.
           </p>
         </div>
@@ -157,10 +158,10 @@ export default function Pricing() {
 
       {/* Creator Plan Dialog */}
       <Dialog open={showCreatorDialog} onOpenChange={setShowCreatorDialog}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-md bg-gray-900 border-gray-700 text-white">
           <DialogHeader>
-            <DialogTitle>Creator Plan Features</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-white">Creator Plan Features</DialogTitle>
+            <DialogDescription className="text-gray-300">
               Everything you need to grow your creator business
             </DialogDescription>
           </DialogHeader>
@@ -168,21 +169,21 @@ export default function Pricing() {
             <div className="space-y-3">
               {plans[1].features.map((feature, index) => (
                 <div key={index} className="flex items-center space-x-2">
-                  <Check className="w-4 h-4 text-green-500" />
-                  <span className="text-sm">{feature}</span>
+                  <Check className="w-4 h-4 text-pink-400" />
+                  <span className="text-sm text-gray-200">{feature}</span>
                 </div>
               ))}
             </div>
-            <div className="pt-2 border-t">
-              <p className="text-sm text-gray-600 mb-3">
-                Monthly subscription: <span className="font-semibold">₹999/month</span>
+            <div className="pt-2 border-t border-gray-700">
+              <p className="text-sm text-gray-300 mb-3">
+                Monthly subscription: <span className="font-semibold text-white">₹999/month</span>
               </p>
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-gray-500">
                 Small platform fee on successful sales
               </p>
             </div>
             <Button 
-              className="w-full bg-purple-600 hover:bg-purple-700"
+              className="w-full bg-pink-600 hover:bg-pink-700 text-white"
               onClick={() => setShowCreatorDialog(false)}
             >
               Start Creating
@@ -193,10 +194,10 @@ export default function Pricing() {
 
       {/* Free Plan Dialog */}
       <Dialog open={showFreeDialog} onOpenChange={setShowFreeDialog}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-md bg-gray-900 border-gray-700 text-white">
           <DialogHeader>
-            <DialogTitle>Free Plan Features</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-white">Free Plan Features</DialogTitle>
+            <DialogDescription className="text-gray-300">
               Get started with essential creator tools
             </DialogDescription>
           </DialogHeader>
@@ -204,21 +205,21 @@ export default function Pricing() {
             <div className="space-y-3">
               {plans[0].features.map((feature, index) => (
                 <div key={index} className="flex items-center space-x-2">
-                  <Check className="w-4 h-4 text-green-500" />
-                  <span className="text-sm">{feature}</span>
+                  <Check className="w-4 h-4 text-pink-400" />
+                  <span className="text-sm text-gray-200">{feature}</span>
                 </div>
               ))}
             </div>
-            <div className="pt-2 border-t">
-              <p className="text-sm text-gray-600 mb-3">
-                <span className="font-semibold">Free forever</span>
+            <div className="pt-2 border-t border-gray-700">
+              <p className="text-sm text-gray-300 mb-3">
+                <span className="font-semibold text-white">Free forever</span>
               </p>
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-gray-500">
                 Small platform fee on successful sales
               </p>
             </div>
             <Button 
-              className="w-full"
+              className="w-full bg-pink-600 hover:bg-pink-700 text-white"
               onClick={() => setShowFreeDialog(false)}
             >
               Get Started Free
@@ -229,10 +230,10 @@ export default function Pricing() {
 
       {/* Pro Plan Dialog */}
       <Dialog open={showProDialog} onOpenChange={setShowProDialog}>
-        <DialogContent className="max-w-md">
+        <DialogContent className="max-w-md bg-gray-900 border-gray-700 text-white">
           <DialogHeader>
-            <DialogTitle>Pro Plan Features</DialogTitle>
-            <DialogDescription>
+            <DialogTitle className="text-white">Pro Plan Features</DialogTitle>
+            <DialogDescription className="text-gray-300">
               Advanced tools for serious businesses
             </DialogDescription>
           </DialogHeader>
@@ -240,21 +241,21 @@ export default function Pricing() {
             <div className="space-y-3">
               {plans[2].features.map((feature, index) => (
                 <div key={index} className="flex items-center space-x-2">
-                  <Check className="w-4 h-4 text-green-500" />
-                  <span className="text-sm">{feature}</span>
+                  <Check className="w-4 h-4 text-pink-400" />
+                  <span className="text-sm text-gray-200">{feature}</span>
                 </div>
               ))}
             </div>
-            <div className="pt-2 border-t">
-              <p className="text-sm text-gray-600 mb-3">
-                Monthly subscription: <span className="font-semibold">₹2999/month</span>
+            <div className="pt-2 border-t border-gray-700">
+              <p className="text-sm text-gray-300 mb-3">
+                Monthly subscription: <span className="font-semibold text-white">₹2999/month</span>
               </p>
-              <p className="text-xs text-gray-400">
+              <p className="text-xs text-gray-500">
                 Small platform fee on successful sales
               </p>
             </div>
             <Button 
-              className="w-full bg-purple-600 hover:bg-purple-700"
+              className="w-full bg-pink-600 hover:bg-pink-700 text-white"
               onClick={() => setShowProDialog(false)}
             >
               Go Pro
