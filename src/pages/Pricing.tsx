@@ -1,4 +1,3 @@
-
 import { Check } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -115,20 +114,9 @@ export default function Pricing() {
           {plans.map((plan, index) => (
             <Card 
               key={index} 
-              className={`relative cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl ${
-                plan.popular 
-                  ? 'border-purple-500 border-2 shadow-lg hover:shadow-purple-200' 
-                  : 'hover:border-purple-300 hover:shadow-purple-100'
-              }`}
+              className="relative cursor-pointer transition-all duration-300 hover:scale-105 hover:shadow-xl hover:border-purple-500 hover:border-2 hover:shadow-purple-200"
               onClick={() => handlePlanClick(plan.name)}
             >
-              {plan.popular && (
-                <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-                  <span className="bg-purple-500 text-white px-4 py-1 rounded-full text-sm font-medium">
-                    Most Popular
-                  </span>
-                </div>
-              )}
               <CardHeader className="text-center">
                 <CardTitle className="text-2xl">{plan.name}</CardTitle>
                 <div className="flex items-baseline justify-center">
@@ -147,8 +135,8 @@ export default function Pricing() {
                   </div>
                 </div>
                 <Button 
-                  className={`w-full ${plan.popular ? 'bg-purple-600 hover:bg-purple-700' : ''}`}
-                  variant={plan.popular ? 'default' : 'outline'}
+                  className="w-full"
+                  variant="outline"
                 >
                   {plan.cta}
                 </Button>
@@ -162,7 +150,7 @@ export default function Pricing() {
             All plans include secure payments, instant payouts, and our creator community
           </p>
           <p className="text-xs text-gray-400 opacity-75">
-            * Platform fee applies to transactions. No hidden fees or setup costs.
+            * Small platform fee on successful sales. No hidden fees or setup costs.
           </p>
         </div>
       </div>
@@ -178,7 +166,7 @@ export default function Pricing() {
           </DialogHeader>
           <div className="space-y-4">
             <div className="space-y-3">
-              {creatorPlanFeatures.map((feature, index) => (
+              {plans[1].features.map((feature, index) => (
                 <div key={index} className="flex items-center space-x-2">
                   <Check className="w-4 h-4 text-green-500" />
                   <span className="text-sm">{feature}</span>
@@ -214,7 +202,7 @@ export default function Pricing() {
           </DialogHeader>
           <div className="space-y-4">
             <div className="space-y-3">
-              {freePlanFeatures.map((feature, index) => (
+              {plans[0].features.map((feature, index) => (
                 <div key={index} className="flex items-center space-x-2">
                   <Check className="w-4 h-4 text-green-500" />
                   <span className="text-sm">{feature}</span>
@@ -250,7 +238,7 @@ export default function Pricing() {
           </DialogHeader>
           <div className="space-y-4">
             <div className="space-y-3">
-              {proPlanFeatures.map((feature, index) => (
+              {plans[2].features.map((feature, index) => (
                 <div key={index} className="flex items-center space-x-2">
                   <Check className="w-4 h-4 text-green-500" />
                   <span className="text-sm">{feature}</span>
