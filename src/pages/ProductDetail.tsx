@@ -100,15 +100,15 @@ export default function ProductDetail() {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-pink-950">
       {/* Hero Section */}
-      <div className="bg-slate-900 text-white py-12">
+      <div className="bg-gray-900/80 backdrop-blur-sm text-white py-12 border-b border-gray-800">
         <div className="container mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
             <div className="lg:col-span-2">
               <div className="mb-4">
-                <Badge className="mb-2">Bestseller</Badge>
-                <h1 className="text-4xl font-bold mb-4">{product.title}</h1>
+                <Badge className="mb-2 bg-pink-600 text-white hover:bg-pink-700">Bestseller</Badge>
+                <h1 className="text-4xl font-bold mb-4 text-white">{product.title}</h1>
                 <p className="text-xl text-gray-300 mb-6">{product.description}</p>
               </div>
               
@@ -119,12 +119,12 @@ export default function ProductDetail() {
                       <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
                     ))}
                   </div>
-                  <span className="font-semibold">{product.rating}</span>
+                  <span className="font-semibold text-white">{product.rating}</span>
                   <span className="text-gray-300">({product.reviews} reviews)</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <Users className="w-5 h-5" />
-                  <span>{product.students.toLocaleString()} students</span>
+                  <Users className="w-5 h-5 text-gray-300" />
+                  <span className="text-gray-300">{product.students.toLocaleString()} students</span>
                 </div>
               </div>
               
@@ -148,48 +148,48 @@ export default function ProductDetail() {
             
             {/* Purchase Card */}
             <div className="lg:col-span-1">
-              <Card className="sticky top-4">
+              <Card className="sticky top-4 bg-gray-900/80 border-gray-700 backdrop-blur-sm">
                 <CardHeader>
-                  <div className="aspect-video bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
-                    <Play className="w-12 h-12 text-gray-500" />
+                  <div className="aspect-video bg-gray-800 rounded-lg mb-4 flex items-center justify-center">
+                    <Play className="w-12 h-12 text-gray-400" />
                   </div>
                   <div className="flex items-center gap-4">
-                    <span className="text-3xl font-bold">₹{product.price}</span>
+                    <span className="text-3xl font-bold text-white">₹{product.price}</span>
                     <span className="text-lg text-gray-500 line-through">₹{product.originalPrice}</span>
-                    <Badge variant="destructive">40% OFF</Badge>
+                    <Badge variant="destructive" className="bg-pink-600 text-white hover:bg-pink-700">40% OFF</Badge>
                   </div>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <Button onClick={handlePurchase} className="w-full text-lg py-6">
+                  <Button onClick={handlePurchase} className="w-full text-lg py-6 bg-pink-600 hover:bg-pink-700 text-white">
                     Buy Now
                   </Button>
-                  <Button variant="outline" className="w-full">
+                  <Button variant="outline" className="w-full border-pink-500/50 text-pink-200 hover:bg-pink-500/20 hover:text-white hover:border-pink-400">
                     Add to Cart
                   </Button>
                   
-                  <div className="text-center text-sm text-gray-600">
+                  <div className="text-center text-sm text-gray-400">
                     <Shield className="w-4 h-4 inline mr-1" />
                     30-day money-back guarantee
                   </div>
                   
                   <div className="space-y-2 text-sm">
-                    <p className="font-semibold">This course includes:</p>
+                    <p className="font-semibold text-gray-200">This course includes:</p>
                     <div className="space-y-1">
                       <div className="flex items-center gap-2">
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                        <span>Lifetime access</span>
+                        <CheckCircle className="w-4 h-4 text-pink-400" />
+                        <span className="text-gray-300">Lifetime access</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                        <span>Certificate of completion</span>
+                        <CheckCircle className="w-4 h-4 text-pink-400" />
+                        <span className="text-gray-300">Certificate of completion</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                        <span>Access on mobile and desktop</span>
+                        <CheckCircle className="w-4 h-4 text-pink-400" />
+                        <span className="text-gray-300">Access on mobile and desktop</span>
                       </div>
                       <div className="flex items-center gap-2">
-                        <CheckCircle className="w-4 h-4 text-green-500" />
-                        <span>Downloadable resources</span>
+                        <CheckCircle className="w-4 h-4 text-pink-400" />
+                        <span className="text-gray-300">Downloadable resources</span>
                       </div>
                     </div>
                   </div>
@@ -203,41 +203,41 @@ export default function ProductDetail() {
       {/* Content Tabs */}
       <div className="container mx-auto px-4 py-8">
         <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="overview">Overview</TabsTrigger>
-            <TabsTrigger value="curriculum">Curriculum</TabsTrigger>
-            <TabsTrigger value="reviews">Reviews</TabsTrigger>
-            <TabsTrigger value="instructor">Instructor</TabsTrigger>
+          <TabsList className="grid w-full grid-cols-4 bg-gray-900/80 border-gray-700">
+            <TabsTrigger value="overview" className="text-gray-300 data-[state=active]:bg-pink-600 data-[state=active]:text-white">Overview</TabsTrigger>
+            <TabsTrigger value="curriculum" className="text-gray-300 data-[state=active]:bg-pink-600 data-[state=active]:text-white">Curriculum</TabsTrigger>
+            <TabsTrigger value="reviews" className="text-gray-300 data-[state=active]:bg-pink-600 data-[state=active]:text-white">Reviews</TabsTrigger>
+            <TabsTrigger value="instructor" className="text-gray-300 data-[state=active]:bg-pink-600 data-[state=active]:text-white">Instructor</TabsTrigger>
           </TabsList>
 
           <TabsContent value="overview">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <Card>
+              <Card className="bg-gray-900/80 border-gray-700 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle>What you'll learn</CardTitle>
+                  <CardTitle className="text-white">What you'll learn</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-1 gap-3">
                     {product.whatYouLearn.map((item, index) => (
                       <div key={index} className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-green-500 mt-0.5 flex-shrink-0" />
-                        <span className="text-sm">{item}</span>
+                        <CheckCircle className="w-5 h-5 text-pink-400 mt-0.5 flex-shrink-0" />
+                        <span className="text-sm text-gray-300">{item}</span>
                       </div>
                     ))}
                   </div>
                 </CardContent>
               </Card>
               
-              <Card>
+              <Card className="bg-gray-900/80 border-gray-700 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle>Requirements</CardTitle>
+                  <CardTitle className="text-white">Requirements</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ul className="space-y-2">
                     {product.requirements.map((req, index) => (
                       <li key={index} className="flex items-start gap-3">
                         <div className="w-2 h-2 bg-gray-400 rounded-full mt-2 flex-shrink-0" />
-                        <span className="text-sm">{req}</span>
+                        <span className="text-sm text-gray-300">{req}</span>
                       </li>
                     ))}
                   </ul>
@@ -247,24 +247,24 @@ export default function ProductDetail() {
           </TabsContent>
 
           <TabsContent value="curriculum">
-            <Card>
+            <Card className="bg-gray-900/80 border-gray-700 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle>Course Curriculum</CardTitle>
-                <CardDescription>
+                <CardTitle className="text-white">Course Curriculum</CardTitle>
+                <CardDescription className="text-gray-400">
                   {product.lessons} lectures • {product.duration} total length
                 </CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
                   {product.curriculum.map((section, index) => (
-                    <div key={index} className="border rounded-lg p-4">
+                    <div key={index} className="border border-gray-700 bg-gray-800/50 rounded-lg p-4">
                       <div className="flex justify-between items-center mb-2">
-                        <h3 className="font-semibold">{section.section}</h3>
-                        <span className="text-sm text-gray-600">
+                        <h3 className="font-semibold text-white">{section.section}</h3>
+                        <span className="text-sm text-gray-400">
                           {section.lessons} lessons • {section.duration}
                         </span>
                       </div>
-                      <div className="text-sm text-gray-600">
+                      <div className="text-sm text-gray-400">
                         Learn the fundamentals and advanced concepts
                       </div>
                     </div>
@@ -275,12 +275,12 @@ export default function ProductDetail() {
           </TabsContent>
 
           <TabsContent value="reviews">
-            <Card>
+            <Card className="bg-gray-900/80 border-gray-700 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle>Student Reviews</CardTitle>
+                <CardTitle className="text-white">Student Reviews</CardTitle>
               </CardHeader>
               <CardContent>
-                <div className="text-center py-8 text-gray-500">
+                <div className="text-center py-8 text-gray-400">
                   Reviews section would display student feedback here
                 </div>
               </CardContent>
@@ -288,32 +288,32 @@ export default function ProductDetail() {
           </TabsContent>
 
           <TabsContent value="instructor">
-            <Card>
+            <Card className="bg-gray-900/80 border-gray-700 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle>About the Instructor</CardTitle>
+                <CardTitle className="text-white">About the Instructor</CardTitle>
               </CardHeader>
               <CardContent>
                 <div className="flex items-start gap-4">
-                  <div className="w-20 h-20 bg-gray-200 rounded-full flex items-center justify-center">
-                    <Award className="w-8 h-8 text-gray-500" />
+                  <div className="w-20 h-20 bg-gray-700 rounded-full flex items-center justify-center">
+                    <Award className="w-8 h-8 text-gray-400" />
                   </div>
                   <div>
-                    <h3 className="text-xl font-semibold mb-2">{product.creator}</h3>
-                    <p className="text-gray-600 mb-4">
+                    <h3 className="text-xl font-semibold mb-2 text-white">{product.creator}</h3>
+                    <p className="text-gray-300 mb-4">
                       Full-stack developer with 8+ years of experience. Passionate about teaching and helping others learn to code.
                     </p>
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
-                        <span className="font-semibold">Students:</span> 45,230
+                        <span className="font-semibold text-gray-200">Students:</span> <span className="text-gray-400">45,230</span>
                       </div>
                       <div>
-                        <span className="font-semibold">Courses:</span> 12
+                        <span className="font-semibold text-gray-200">Courses:</span> <span className="text-gray-400">12</span>
                       </div>
                       <div>
-                        <span className="font-semibold">Reviews:</span> 8,945
+                        <span className="font-semibold text-gray-200">Reviews:</span> <span className="text-gray-400">8,945</span>
                       </div>
                       <div>
-                        <span className="font-semibold">Rating:</span> 4.7/5
+                        <span className="font-semibold text-gray-200">Rating:</span> <span className="text-gray-400">4.7/5</span>
                       </div>
                     </div>
                   </div>
