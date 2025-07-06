@@ -20,90 +20,51 @@ import {
 } from "lucide-react";
 
 export default function Dashboard() {
-  // Mock data - replace with real API calls
+  // Realistic starter data
   const stats = {
-    totalRevenue: 125000,
-    totalSales: 342,
-    totalCustomers: 1250,
-    conversionRate: 3.2,
-    monthlyRevenue: 45000,
-    monthlyGrowth: 24.5
+    totalRevenue: 0,
+    totalSales: 0,
+    totalCustomers: 0,
+    conversionRate: 0,
+    monthlyRevenue: 0,
+    monthlyGrowth: 0
   };
 
   const recentProducts = [
-    {
-      id: "1",
-      title: "Complete Stock Trading Course",
-      sales: 45,
-      revenue: 224550,
-      status: "active",
-      views: 1250
-    },
-    {
-      id: "2",
-      title: "SaaS Building Kit",
-      sales: 23,
-      revenue: 68977,
-      status: "active",
-      views: 890
-    },
-    {
-      id: "3",
-      title: "AI Prompts Collection",
-      sales: 67,
-      revenue: 100433,
-      status: "active",
-      views: 2340
-    }
+    // Empty array for new users - they'll add products
   ];
 
   const recentOrders = [
-    {
-      id: "ORD-001",
-      customer: "Rahul Sharma",
-      product: "Stock Trading Course",
-      amount: 4999,
-      status: "completed",
-      date: "2024-01-15"
-    },
-    {
-      id: "ORD-002",
-      customer: "Priya Patel",
-      product: "SaaS Building Kit",
-      amount: 2999,
-      status: "completed",
-      date: "2024-01-15"
-    },
-    {
-      id: "ORD-003",
-      customer: "Amit Kumar",
-      product: "AI Prompts Collection",
-      amount: 1499,
-      status: "pending",
-      date: "2024-01-14"
-    }
+    // Empty array for new users - no orders yet
   ];
 
   return (
-    <div className="min-h-screen bg-gray-50">
-      <div className="container mx-auto px-4 py-8">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black relative overflow-hidden">
+      {/* Background Orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-600/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-3/4 left-1/2 w-48 h-48 bg-purple-500/10 rounded-full blur-2xl animate-pulse delay-2000"></div>
+      </div>
+      
+      <div className="container mx-auto px-4 py-8 relative z-10">
         {/* Header */}
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold mb-2">Creator Dashboard</h1>
-            <p className="text-gray-600">Manage your products and track your success</p>
+            <h1 className="text-3xl font-bold mb-2 text-white">Creator Dashboard</h1>
+            <p className="text-gray-300">Start your journey - create your first product to begin earning</p>
           </div>
           <div className="flex gap-3 mt-4 md:mt-0">
-            <Button variant="outline" asChild>
+            <Button variant="outline" className="border-pink-500/50 text-pink-400 hover:bg-pink-500/10" asChild>
               <Link to="/analytics">
                 <BarChart3 className="w-4 h-4 mr-2" />
                 Analytics
               </Link>
             </Button>
-            <Button asChild>
+            <Button className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700" asChild>
               <Link to="/create-product">
                 <Plus className="w-4 h-4 mr-2" />
-                New Product
+                Create Your First Product
               </Link>
             </Button>
           </div>
@@ -111,54 +72,54 @@ export default function Dashboard() {
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card>
+          <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm hover:bg-gray-800/70 transition-colors">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Revenue</CardTitle>
-              <IndianRupee className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium text-gray-300">Total Revenue</CardTitle>
+              <IndianRupee className="h-4 w-4 text-pink-400" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">₹{stats.totalRevenue.toLocaleString()}</div>
-              <p className="text-xs text-muted-foreground">
-                +₹{stats.monthlyRevenue.toLocaleString()} this month
+              <div className="text-2xl font-bold text-white">₹{stats.totalRevenue.toLocaleString()}</div>
+              <p className="text-xs text-gray-400">
+                Start selling to see revenue growth
               </p>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm hover:bg-gray-800/70 transition-colors">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Sales</CardTitle>
-              <Package className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium text-gray-300">Total Sales</CardTitle>
+              <Package className="h-4 w-4 text-pink-400" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.totalSales}</div>
-              <p className="text-xs text-muted-foreground">
-                +{Math.round(stats.monthlyGrowth)}% from last month
+              <div className="text-2xl font-bold text-white">{stats.totalSales}</div>
+              <p className="text-xs text-gray-400">
+                Create products to start making sales
               </p>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm hover:bg-gray-800/70 transition-colors">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Customers</CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium text-gray-300">Customers</CardTitle>
+              <Users className="h-4 w-4 text-pink-400" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.totalCustomers}</div>
-              <p className="text-xs text-muted-foreground">
-                Active customers
+              <div className="text-2xl font-bold text-white">{stats.totalCustomers}</div>
+              <p className="text-xs text-gray-400">
+                Build your customer base
               </p>
             </CardContent>
           </Card>
 
-          <Card>
+          <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm hover:bg-gray-800/70 transition-colors">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Conversion Rate</CardTitle>
-              <TrendingUp className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium text-gray-300">Conversion Rate</CardTitle>
+              <TrendingUp className="h-4 w-4 text-pink-400" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.conversionRate}%</div>
-              <p className="text-xs text-muted-foreground">
-                +0.5% from last month
+              <div className="text-2xl font-bold text-white">{stats.conversionRate}%</div>
+              <p className="text-xs text-gray-400">
+                Track performance as you grow
               </p>
             </CardContent>
           </Card>
@@ -168,80 +129,51 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
           {/* Products Overview */}
           <div className="lg:col-span-2 space-y-6">
-            <Card>
+            <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm">
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <CardTitle>Your Products</CardTitle>
-                  <Button variant="outline" size="sm" asChild>
-                    <Link to="/products">View All</Link>
+                  <CardTitle className="text-white">Your Products</CardTitle>
+                  <Button variant="outline" size="sm" className="border-pink-500/50 text-pink-400 hover:bg-pink-500/10" asChild>
+                    <Link to="/create-product">Create First Product</Link>
                   </Button>
                 </div>
-                <CardDescription>
-                  Track performance of your digital products
+                <CardDescription className="text-gray-400">
+                  You haven't created any products yet. Start your journey!
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  {recentProducts.map((product) => (
-                    <div key={product.id} className="flex items-center justify-between p-4 border rounded-lg">
-                      <div className="flex-1">
-                        <h3 className="font-medium">{product.title}</h3>
-                        <div className="flex items-center gap-4 mt-2 text-sm text-gray-500">
-                          <span className="flex items-center gap-1">
-                            <Package className="w-4 h-4" />
-                            {product.sales} sales
-                          </span>
-                          <span className="flex items-center gap-1">
-                            <Eye className="w-4 h-4" />
-                            {product.views} views
-                          </span>
-                        </div>
-                      </div>
-                      <div className="text-right">
-                        <div className="font-semibold">₹{product.revenue.toLocaleString()}</div>
-                        <Badge variant={product.status === "active" ? "default" : "secondary"}>
-                          {product.status}
-                        </Badge>
-                      </div>
-                    </div>
-                  ))}
+                <div className="text-center py-12">
+                  <Package className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-gray-300 mb-2">No Products Yet</h3>
+                  <p className="text-gray-500 mb-6">Create your first digital product to start earning</p>
+                  <Button className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700" asChild>
+                    <Link to="/create-product">
+                      <Plus className="w-4 h-4 mr-2" />
+                      Create Product
+                    </Link>
+                  </Button>
                 </div>
               </CardContent>
             </Card>
 
             {/* Recent Orders */}
-            <Card>
+            <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm">
               <CardHeader>
                 <div className="flex items-center justify-between">
-                  <CardTitle>Recent Orders</CardTitle>
-                  <Button variant="outline" size="sm" asChild>
-                    <Link to="/orders">View All</Link>
+                  <CardTitle className="text-white">Recent Orders</CardTitle>
+                  <Button variant="outline" size="sm" className="border-pink-500/50 text-pink-400 hover:bg-pink-500/10" disabled>
+                    View All
                   </Button>
                 </div>
-                <CardDescription>
-                  Latest customer purchases
+                <CardDescription className="text-gray-400">
+                  Your customer orders will appear here
                 </CardDescription>
               </CardHeader>
               <CardContent>
-                <div className="space-y-4">
-                  {recentOrders.map((order) => (
-                    <div key={order.id} className="flex items-center justify-between p-4 border rounded-lg">
-                      <div>
-                        <h3 className="font-medium">{order.customer}</h3>
-                        <p className="text-sm text-gray-500">{order.product}</p>
-                        <p className="text-xs text-gray-400">{order.date}</p>
-                      </div>
-                      <div className="text-right">
-                        <div className="font-semibold">₹{order.amount.toLocaleString()}</div>
-                        <Badge 
-                          variant={order.status === "completed" ? "default" : "secondary"}
-                          className="mt-1"
-                        >
-                          {order.status}
-                        </Badge>
-                      </div>
-                    </div>
-                  ))}
+                <div className="text-center py-12">
+                  <MessageSquare className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-gray-300 mb-2">No Orders Yet</h3>
+                  <p className="text-gray-500">Orders from customers will show up here</p>
                 </div>
               </CardContent>
             </Card>
@@ -250,30 +182,30 @@ export default function Dashboard() {
           {/* Sidebar */}
           <div className="space-y-6">
             {/* Quick Actions */}
-            <Card>
+            <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle>Quick Actions</CardTitle>
+                <CardTitle className="text-white">Quick Actions</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3">
-                <Button className="w-full justify-start" asChild>
+                <Button className="w-full justify-start bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700" asChild>
                   <Link to="/create-product">
                     <Plus className="w-4 h-4 mr-2" />
                     Create New Product
                   </Link>
                 </Button>
-                <Button variant="outline" className="w-full justify-start" asChild>
+                <Button variant="outline" className="w-full justify-start border-pink-500/50 text-pink-400 hover:bg-pink-500/10" asChild>
                   <Link to="/analytics">
                     <BarChart3 className="w-4 h-4 mr-2" />
                     View Analytics
                   </Link>
                 </Button>
-                <Button variant="outline" className="w-full justify-start" asChild>
+                <Button variant="outline" className="w-full justify-start border-pink-500/50 text-pink-400 hover:bg-pink-500/10" asChild>
                   <Link to="/customers">
                     <Users className="w-4 h-4 mr-2" />
                     Manage Customers
                   </Link>
                 </Button>
-                <Button variant="outline" className="w-full justify-start" asChild>
+                <Button variant="outline" className="w-full justify-start border-pink-500/50 text-pink-400 hover:bg-pink-500/10" asChild>
                   <Link to="/settings">
                     <Settings className="w-4 h-4 mr-2" />
                     Account Settings
@@ -283,49 +215,49 @@ export default function Dashboard() {
             </Card>
 
             {/* Goals Progress */}
-            <Card>
+            <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle>Monthly Goals</CardTitle>
-                <CardDescription>Track your progress this month</CardDescription>
+                <CardTitle className="text-white">Getting Started Goals</CardTitle>
+                <CardDescription className="text-gray-400">Complete these steps to launch</CardDescription>
               </CardHeader>
               <CardContent className="space-y-4">
                 <div>
                   <div className="flex justify-between text-sm mb-2">
-                    <span>Revenue Goal</span>
-                    <span>₹45K / ₹50K</span>
+                    <span className="text-gray-300">Create First Product</span>
+                    <span className="text-gray-400">0 / 1</span>
                   </div>
-                  <Progress value={90} className="h-2" />
+                  <Progress value={0} className="h-2 bg-gray-700" />
                 </div>
                 <div>
                   <div className="flex justify-between text-sm mb-2">
-                    <span>Sales Goal</span>
-                    <span>135 / 150</span>
+                    <span className="text-gray-300">Get First Customer</span>
+                    <span className="text-gray-400">0 / 1</span>
                   </div>
-                  <Progress value={90} className="h-2" />
+                  <Progress value={0} className="h-2 bg-gray-700" />
                 </div>
                 <div>
                   <div className="flex justify-between text-sm mb-2">
-                    <span>New Customers</span>
-                    <span>89 / 100</span>
+                    <span className="text-gray-300">Reach ₹1000 Revenue</span>
+                    <span className="text-gray-400">₹0 / ₹1000</span>
                   </div>
-                  <Progress value={89} className="h-2" />
+                  <Progress value={0} className="h-2 bg-gray-700" />
                 </div>
               </CardContent>
             </Card>
 
             {/* Tips */}
-            <Card>
+            <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle>💡 Pro Tips</CardTitle>
+                <CardTitle className="text-white">💡 Getting Started Tips</CardTitle>
               </CardHeader>
               <CardContent className="space-y-3 text-sm">
-                <div className="p-3 bg-blue-50 rounded-lg">
-                  <p className="font-medium text-blue-900">Optimize your product titles</p>
-                  <p className="text-blue-700">Use keywords your customers are searching for</p>
+                <div className="p-3 bg-pink-500/10 border border-pink-500/20 rounded-lg">
+                  <p className="font-medium text-pink-300">Start with what you know</p>
+                  <p className="text-pink-200/80">Create content about your expertise or skills</p>
                 </div>
-                <div className="p-3 bg-green-50 rounded-lg">
-                  <p className="font-medium text-green-900">Add customer testimonials</p>
-                  <p className="text-green-700">Social proof can increase conversions by 15%</p>
+                <div className="p-3 bg-purple-500/10 border border-purple-500/20 rounded-lg">
+                  <p className="font-medium text-purple-300">Keep it simple initially</p>
+                  <p className="text-purple-200/80">Launch with one product and iterate based on feedback</p>
                 </div>
               </CardContent>
             </Card>

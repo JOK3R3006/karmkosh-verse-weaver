@@ -13,235 +13,171 @@ import {
   Plus,
   Edit,
   Eye,
-  Download
+  Download,
+  Package
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
 export default function CreatorDashboard() {
   const [stats] = useState({
-    totalEarnings: 45250,
-    totalSales: 127,
-    activeProducts: 8,
-    totalStudents: 1543
+    totalEarnings: 0,
+    totalSales: 0,
+    activeProducts: 0,
+    totalStudents: 0
   });
 
   const [products] = useState([
-    {
-      id: 1,
-      title: "Complete Web Development Course",
-      price: 2999,
-      sales: 45,
-      earnings: 12157,
-      status: "published"
-    },
-    {
-      id: 2,
-      title: "React Masterclass",
-      price: 1999,
-      sales: 32,
-      earnings: 5757,
-      status: "published"
-    },
-    {
-      id: 3,
-      title: "Digital Marketing Blueprint",
-      price: 1499,
-      sales: 28,
-      earnings: 3777,
-      status: "published"
-    },
-    {
-      id: 4,
-      title: "UI/UX Design Fundamentals",
-      price: 2499,
-      sales: 22,
-      earnings: 4948,
-      status: "draft"
-    }
+    // Empty array - new creators start with no products
   ]);
 
   const [recentSales] = useState([
-    { id: 1, product: "Complete Web Development Course", buyer: "Rahul S.", amount: 2999, date: "2024-01-15", commission: 300 },
-    { id: 2, product: "React Masterclass", buyer: "Priya M.", amount: 1999, date: "2024-01-14", commission: 200 },
-    { id: 3, product: "Digital Marketing Blueprint", buyer: "Amit K.", amount: 1499, date: "2024-01-14", commission: 150 },
-    { id: 4, product: "Complete Web Development Course", buyer: "Sneha R.", amount: 2999, date: "2024-01-13", commission: 300 },
-    { id: 5, product: "UI/UX Design Fundamentals", buyer: "Vikash T.", amount: 2499, date: "2024-01-12", commission: 250 }
+    // Empty array - no sales yet for new creators
   ]);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-8">
-      <div className="container mx-auto px-4">
+    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-black relative overflow-hidden">
+      {/* Background Orbs */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-1/4 left-1/4 w-64 h-64 bg-pink-500/10 rounded-full blur-3xl animate-pulse"></div>
+        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-600/5 rounded-full blur-3xl animate-pulse delay-1000"></div>
+        <div className="absolute top-3/4 left-1/2 w-48 h-48 bg-purple-500/10 rounded-full blur-2xl animate-pulse delay-2000"></div>
+      </div>
+      
+      <div className="container mx-auto px-4 relative z-10 py-8">
         <div className="flex justify-between items-center mb-8">
           <div>
-            <h1 className="text-3xl font-bold mb-2">Creator Dashboard</h1>
-            <p className="text-gray-600">Welcome back! Here's your performance overview.</p>
+            <h1 className="text-3xl font-bold mb-2 text-white">Creator Dashboard</h1>
+            <p className="text-gray-300">Welcome! Start by creating your first product to begin your journey.</p>
           </div>
           <Link to="/create-product">
-            <Button>
+            <Button className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700">
               <Plus className="w-4 h-4 mr-2" />
-              Create Product
+              Create Your First Product
             </Button>
           </Link>
         </div>
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
-          <Card>
+          <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm hover:bg-gray-800/70 transition-colors">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Earnings</CardTitle>
-              <DollarSign className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium text-gray-300">Total Earnings</CardTitle>
+              <DollarSign className="h-4 w-4 text-pink-400" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">₹{stats.totalEarnings.toLocaleString()}</div>
-              <p className="text-xs text-muted-foreground">+12% from last month</p>
+              <div className="text-2xl font-bold text-white">₹{stats.totalEarnings.toLocaleString()}</div>
+              <p className="text-xs text-gray-400">Start selling to earn revenue</p>
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm hover:bg-gray-800/70 transition-colors">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Sales</CardTitle>
-              <ShoppingCart className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium text-gray-300">Total Sales</CardTitle>
+              <ShoppingCart className="h-4 w-4 text-pink-400" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.totalSales}</div>
-              <p className="text-xs text-muted-foreground">+8% from last month</p>
+              <div className="text-2xl font-bold text-white">{stats.totalSales}</div>
+              <p className="text-xs text-gray-400">Create products to make sales</p>
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm hover:bg-gray-800/70 transition-colors">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Active Products</CardTitle>
-              <TrendingUp className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium text-gray-300">Active Products</CardTitle>
+              <TrendingUp className="h-4 w-4 text-pink-400" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.activeProducts}</div>
-              <p className="text-xs text-muted-foreground">2 pending review</p>
+              <div className="text-2xl font-bold text-white">{stats.activeProducts}</div>
+              <p className="text-xs text-gray-400">Ready to create your first one?</p>
             </CardContent>
           </Card>
           
-          <Card>
+          <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm hover:bg-gray-800/70 transition-colors">
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-              <CardTitle className="text-sm font-medium">Total Students</CardTitle>
-              <Users className="h-4 w-4 text-muted-foreground" />
+              <CardTitle className="text-sm font-medium text-gray-300">Total Students</CardTitle>
+              <Users className="h-4 w-4 text-pink-400" />
             </CardHeader>
             <CardContent>
-              <div className="text-2xl font-bold">{stats.totalStudents}</div>
-              <p className="text-xs text-muted-foreground">+23% from last month</p>
+              <div className="text-2xl font-bold text-white">{stats.totalStudents}</div>
+              <p className="text-xs text-gray-400">Build your audience</p>
             </CardContent>
           </Card>
         </div>
 
         <Tabs defaultValue="products" className="space-y-6">
-          <TabsList>
-            <TabsTrigger value="products">My Products</TabsTrigger>
-            <TabsTrigger value="sales">Recent Sales</TabsTrigger>
-            <TabsTrigger value="analytics">Analytics</TabsTrigger>
-            <TabsTrigger value="payouts">Payouts</TabsTrigger>
+          <TabsList className="bg-gray-800/50 border border-gray-700/50">
+            <TabsTrigger value="products" className="data-[state=active]:bg-pink-500/20 data-[state=active]:text-pink-300 text-gray-400">My Products</TabsTrigger>
+            <TabsTrigger value="sales" className="data-[state=active]:bg-pink-500/20 data-[state=active]:text-pink-300 text-gray-400">Recent Sales</TabsTrigger>
+            <TabsTrigger value="analytics" className="data-[state=active]:bg-pink-500/20 data-[state=active]:text-pink-300 text-gray-400">Analytics</TabsTrigger>
+            <TabsTrigger value="payouts" className="data-[state=active]:bg-pink-500/20 data-[state=active]:text-pink-300 text-gray-400">Payouts</TabsTrigger>
           </TabsList>
 
           <TabsContent value="products">
-            <Card>
+            <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle>Your Products</CardTitle>
-                <CardDescription>Manage your courses and digital products</CardDescription>
+                <CardTitle className="text-white">Your Products</CardTitle>
+                <CardDescription className="text-gray-400">Create and manage your courses and digital products</CardDescription>
               </CardHeader>
               <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Product</TableHead>
-                      <TableHead>Price</TableHead>
-                      <TableHead>Sales</TableHead>
-                      <TableHead>Earnings</TableHead>
-                      <TableHead>Status</TableHead>
-                      <TableHead>Actions</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {products.map((product) => (
-                      <TableRow key={product.id}>
-                        <TableCell className="font-medium">{product.title}</TableCell>
-                        <TableCell>₹{product.price}</TableCell>
-                        <TableCell>{product.sales}</TableCell>
-                        <TableCell>₹{product.earnings}</TableCell>
-                        <TableCell>
-                          <Badge variant={product.status === 'published' ? 'default' : 'secondary'}>
-                            {product.status}
-                          </Badge>
-                        </TableCell>
-                        <TableCell>
-                          <div className="flex gap-2">
-                            <Button size="sm" variant="outline">
-                              <Eye className="w-3 h-3" />
-                            </Button>
-                            <Button size="sm" variant="outline">
-                              <Edit className="w-3 h-3" />
-                            </Button>
-                          </div>
-                        </TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                <div className="text-center py-12">
+                  <Package className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-gray-300 mb-2">No Products Created Yet</h3>
+                  <p className="text-gray-500 mb-6">Start your creator journey by creating your first digital product</p>
+                  <Button className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700" asChild>
+                    <Link to="/create-product">
+                      <Plus className="w-4 h-4 mr-2" />
+                      Create Your First Product
+                    </Link>
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
 
           <TabsContent value="sales">
-            <Card>
+            <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle>Recent Sales</CardTitle>
-                <CardDescription>Your latest transactions and commissions</CardDescription>
+                <CardTitle className="text-white">Recent Sales</CardTitle>
+                <CardDescription className="text-gray-400">Your transactions and commissions will appear here</CardDescription>
               </CardHeader>
               <CardContent>
-                <Table>
-                  <TableHeader>
-                    <TableRow>
-                      <TableHead>Product</TableHead>
-                      <TableHead>Buyer</TableHead>
-                      <TableHead>Amount</TableHead>
-                      <TableHead>Commission (10%)</TableHead>
-                      <TableHead>Your Earnings</TableHead>
-                      <TableHead>Date</TableHead>
-                    </TableRow>
-                  </TableHeader>
-                  <TableBody>
-                    {recentSales.map((sale) => (
-                      <TableRow key={sale.id}>
-                        <TableCell className="font-medium">{sale.product}</TableCell>
-                        <TableCell>{sale.buyer}</TableCell>
-                        <TableCell>₹{sale.amount}</TableCell>
-                        <TableCell className="text-red-600">-₹{sale.commission}</TableCell>
-                        <TableCell className="text-green-600 font-medium">₹{sale.amount - sale.commission}</TableCell>
-                        <TableCell>{sale.date}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
+                <div className="text-center py-12">
+                  <ShoppingCart className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+                  <h3 className="text-lg font-medium text-gray-300 mb-2">No Sales Yet</h3>
+                  <p className="text-gray-500 mb-6">Once you create products and customers start buying, sales will appear here</p>
+                  <Button className="bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700" asChild>
+                    <Link to="/create-product">
+                      <Plus className="w-4 h-4 mr-2" />
+                      Create Product to Start Selling
+                    </Link>
+                  </Button>
+                </div>
               </CardContent>
             </Card>
           </TabsContent>
 
           <TabsContent value="analytics">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <Card>
+              <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle>Sales Analytics</CardTitle>
+                  <CardTitle className="text-white">Sales Analytics</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-center py-8 text-gray-500">
-                    Sales chart would go here
+                    <TrendingUp className="w-12 h-12 mx-auto mb-4 text-gray-600" />
+                    <p>Sales analytics will appear once you start making sales</p>
                   </div>
                 </CardContent>
               </Card>
               
-              <Card>
+              <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm">
                 <CardHeader>
-                  <CardTitle>Revenue Breakdown</CardTitle>
+                  <CardTitle className="text-white">Revenue Breakdown</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <div className="text-center py-8 text-gray-500">
-                    Revenue chart would go here
+                    <DollarSign className="w-12 h-12 mx-auto mb-4 text-gray-600" />
+                    <p>Revenue breakdown will show after your first sale</p>
                   </div>
                 </CardContent>
               </Card>
@@ -249,21 +185,21 @@ export default function CreatorDashboard() {
           </TabsContent>
 
           <TabsContent value="payouts">
-            <Card>
+            <Card className="bg-gray-800/50 border-gray-700/50 backdrop-blur-sm">
               <CardHeader>
-                <CardTitle>Payout History</CardTitle>
-                <CardDescription>Track your earnings and payouts</CardDescription>
+                <CardTitle className="text-white">Payout History</CardTitle>
+                <CardDescription className="text-gray-400">Track your earnings and payouts</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
-                  <div className="flex justify-between items-center p-4 bg-green-50 rounded-lg">
+                  <div className="flex justify-between items-center p-4 bg-gray-700/30 border border-gray-600/30 rounded-lg">
                     <div>
-                      <p className="font-medium">Available for Payout</p>
-                      <p className="text-sm text-gray-600">Ready to withdraw</p>
+                      <p className="font-medium text-gray-300">Available for Payout</p>
+                      <p className="text-sm text-gray-500">Ready to withdraw</p>
                     </div>
                     <div className="text-right">
-                      <p className="text-2xl font-bold text-green-600">₹8,450</p>
-                      <Button size="sm">
+                      <p className="text-2xl font-bold text-gray-400">₹0</p>
+                      <Button size="sm" disabled className="opacity-50">
                         <Download className="w-3 h-3 mr-1" />
                         Withdraw
                       </Button>
@@ -271,7 +207,8 @@ export default function CreatorDashboard() {
                   </div>
                   
                   <div className="text-center py-8 text-gray-500">
-                    Payout history table would go here
+                    <Download className="w-12 h-12 mx-auto mb-4 text-gray-600" />
+                    <p>Payout history will appear once you start earning</p>
                   </div>
                 </div>
               </CardContent>
