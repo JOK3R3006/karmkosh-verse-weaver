@@ -72,27 +72,6 @@ export default function Creators() {
     }
   ];
 
-  const testimonials = [
-    {
-      name: "Priya Sharma",
-      role: "Digital Marketing Expert",
-      earnings: "₹2.5L",
-      quote: "KarmKosh helped me turn my marketing knowledge into a profitable online business."
-    },
-    {
-      name: "Rahul Verma",
-      role: "Web Developer",
-      earnings: "₹4.2L",
-      quote: "The platform is so easy to use. I uploaded my course and started earning within a week."
-    },
-    {
-      name: "Anjali Gupta",
-      role: "Yoga Instructor",
-      earnings: "₹1.8L",
-      quote: "Amazing community and support. KarmKosh made selling my yoga programs so simple."
-    }
-  ];
-
   return (
     <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-pink-950">
       {/* Hero Section */}
@@ -104,8 +83,8 @@ export default function Creators() {
             <span className="text-pink-400"> Income</span>
           </h1>
           <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-            Join thousands of creators who are monetizing their expertise on KarmKosh. 
-            Create courses, sell digital products, and build your online business.
+            Start your creator journey on KarmKosh. Create courses, sell digital products, 
+            and build your online business from scratch.
           </p>
           <div className="flex gap-4 justify-center">
             <Link to="/auth?mode=signup">
@@ -122,16 +101,16 @@ export default function Creators() {
           
           <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
             <div className="text-center">
-              <div className="text-3xl font-bold text-pink-400">10,000+</div>
-              <div className="text-gray-300">Active Creators</div>
+              <div className="text-3xl font-bold text-pink-400">New Platform</div>
+              <div className="text-gray-300">Growing Community</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-pink-400">₹50Cr+</div>
-              <div className="text-gray-300">Creator Earnings</div>
+              <div className="text-3xl font-bold text-pink-400">90%</div>
+              <div className="text-gray-300">Revenue Share</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-pink-400">2M+</div>
-              <div className="text-gray-300">Happy Students</div>
+              <div className="text-3xl font-bold text-pink-400">Easy</div>
+              <div className="text-gray-300">Setup Process</div>
             </div>
           </div>
         </div>
@@ -185,34 +164,44 @@ export default function Creators() {
         </div>
       </section>
 
-      {/* Testimonials */}
+      {/* Getting Started Section */}
       <section className="py-16 bg-gray-900/50 backdrop-blur-sm">
         <div className="container mx-auto px-4">
           <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 text-white">Success Stories</h2>
-            <p className="text-xl text-gray-300">See how creators are building their businesses</p>
+            <h2 className="text-3xl font-bold mb-4 text-white">Ready to Start?</h2>
+            <p className="text-xl text-gray-300">Join KarmKosh and begin your creator journey today</p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <Card key={index} className="hover:shadow-lg hover:shadow-pink-500/20 transition-all duration-300 hover:scale-105 hover:border-pink-500 hover:border-2 bg-gray-900/80 border-gray-700 backdrop-blur-sm">
-                <CardHeader>
-                  <div className="flex items-center justify-between mb-4">
-                    <div>
-                      <CardTitle className="text-lg text-white">{testimonial.name}</CardTitle>
-                      <CardDescription className="text-gray-400">{testimonial.role}</CardDescription>
-                    </div>
-                    <div className="text-right">
-                      <div className="text-2xl font-bold text-pink-400">{testimonial.earnings}</div>
-                      <div className="text-sm text-gray-500">Total Earned</div>
-                    </div>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-300 italic">"{testimonial.quote}"</p>
-                </CardContent>
-              </Card>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
+            <Card className="text-center hover:shadow-lg hover:shadow-pink-500/20 transition-all duration-300 hover:scale-105 hover:border-pink-500 hover:border-2 bg-gray-900/80 border-gray-700 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="text-xl text-white">Perfect for Beginners</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-300 mb-4">Never created digital products before? No problem! Our platform is designed for first-time creators.</p>
+                <div className="text-sm text-pink-400">✓ Step-by-step guidance</div>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center hover:shadow-lg hover:shadow-pink-500/20 transition-all duration-300 hover:scale-105 hover:border-pink-500 hover:border-2 bg-gray-900/80 border-gray-700 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="text-xl text-white">Share Your Skills</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-300 mb-4">Whether it's coding, design, cooking, or any other skill - there's an audience waiting to learn from you.</p>
+                <div className="text-sm text-pink-400">✓ Any topic works</div>
+              </CardContent>
+            </Card>
+
+            <Card className="text-center hover:shadow-lg hover:shadow-pink-500/20 transition-all duration-300 hover:scale-105 hover:border-pink-500 hover:border-2 bg-gray-900/80 border-gray-700 backdrop-blur-sm">
+              <CardHeader>
+                <CardTitle className="text-xl text-white">Build Your Business</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <p className="text-gray-300 mb-4">Start small and grow over time. Many successful creators started with just one simple product.</p>
+                <div className="text-sm text-pink-400">✓ Scale at your pace</div>
+              </CardContent>
+            </Card>
           </div>
         </div>
       </section>
@@ -222,7 +211,7 @@ export default function Creators() {
         <div className="container mx-auto px-4 text-center">
           <h2 className="text-4xl font-bold mb-6">Ready to Start Your Creator Journey?</h2>
           <p className="text-xl mb-8 opacity-90">
-            Join thousands of successful creators already earning on KarmKosh
+            Take the first step towards building your online business
           </p>
           <div className="flex gap-4 justify-center">
             <Link to="/auth?mode=signup">
