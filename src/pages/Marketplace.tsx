@@ -25,99 +25,20 @@ export default function Marketplace() {
   const products = [
     {
       id: 1,
-      title: "Complete Web Development Bootcamp 2024",
-      creator: "Rohit Sharma",
-      price: 2999,
-      originalPrice: 4999,
-      rating: 4.8,
-      reviews: 1247,
-      students: 15420,
-      duration: "42 hours",
-      lessons: 156,
+      title: "Balance Boost Blueprint",
+      creator: "KarmKosh Team",
+      price: 0,
+      originalPrice: 0,
+      rating: 5.0,
+      reviews: 0,
+      students: 0,
+      duration: "Self-paced",
+      lessons: 1,
       level: "Beginner",
-      category: "Programming",
-      bestseller: true,
-      updated: "2024-01-15"
-    },
-    {
-      id: 2,
-      title: "Digital Marketing Mastery Course",
-      creator: "Priya Singh",
-      price: 1999,
-      originalPrice: 3499,
-      rating: 4.7,
-      reviews: 892,
-      students: 8965,
-      duration: "28 hours",
-      lessons: 95,
-      level: "Intermediate",
-      category: "Marketing",
+      category: "Health",
       bestseller: false,
-      updated: "2024-01-12"
-    },
-    {
-      id: 3,
-      title: "UI/UX Design Complete Guide",
-      creator: "Anjali Gupta",
-      price: 2499,
-      originalPrice: 3999,
-      rating: 4.9,
-      reviews: 654,
-      students: 6543,
-      duration: "35 hours",
-      lessons: 120,
-      level: "Beginner",
-      category: "Design",
-      bestseller: true,
-      updated: "2024-01-10"
-    },
-    {
-      id: 4,
-      title: "Python for Data Science",
-      creator: "Vikash Kumar",
-      price: 2799,
-      originalPrice: 4299,
-      rating: 4.6,
-      reviews: 432,
-      students: 4321,
-      duration: "40 hours",
-      lessons: 140,
-      level: "Intermediate",
-      category: "Programming",
-      bestseller: false,
-      updated: "2024-01-08"
-    },
-    {
-      id: 5,
-      title: "Stock Market Trading Masterclass",
-      creator: "Arjun Patel",
-      price: 3499,
-      originalPrice: 5999,
-      rating: 4.5,
-      reviews: 876,
-      students: 12340,
-      duration: "30 hours",
-      lessons: 85,
-      level: "Advanced",
-      category: "Finance",
-      bestseller: true,
-      updated: "2024-01-06"
-    },
-    {
-      id: 6,
-      title: "Photography Fundamentals",
-      creator: "Sneha Reddy",
-      price: 1799,
-      originalPrice: 2999,
-      rating: 4.8,
-      reviews: 345,
-      students: 2876,
-      duration: "25 hours",
-      lessons: 75,
-      level: "Beginner",
-      category: "Photography",
-      bestseller: false,
-      updated: "2024-01-05"
+      updated: "2024-01-15",
+      url: "https://preview--balance-boost-blueprint.lovable.app/"
     }
   ];
 
@@ -128,7 +49,8 @@ export default function Marketplace() {
     { value: "marketing", label: "Marketing" },
     { value: "finance", label: "Finance" },
     { value: "photography", label: "Photography" },
-    { value: "business", label: "Business" }
+    { value: "business", label: "Business" },
+    { value: "health", label: "Health" }
   ];
 
   const filteredProducts = products.filter(product => {
@@ -226,7 +148,7 @@ export default function Marketplace() {
         {/* Products Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {filteredProducts.map((product) => (
-            <Link key={product.id} to={`/product/${product.id}`}>
+            <div key={product.id}>
               <Card className="hover:shadow-lg hover:shadow-pink-500/20 transition-all duration-300 hover:scale-105 hover:border-pink-500 hover:border-2 bg-gray-900/80 border-gray-700 backdrop-blur-sm cursor-pointer h-full">
                 <div className="relative">
                   <div className="aspect-video bg-gray-800 rounded-t-lg flex items-center justify-center">
@@ -255,7 +177,7 @@ export default function Marketplace() {
                     <span className="text-gray-500">•</span>
                     <div className="flex items-center gap-1">
                       <Users className="w-4 h-4 text-gray-400" />
-                      <span className="text-gray-400">{product.students.toLocaleString()}</span>
+                      <span className="text-gray-400">{product.students}</span>
                     </div>
                   </div>
                 </CardHeader>
@@ -272,9 +194,11 @@ export default function Marketplace() {
                     </Badge>
                   </div>
                   
-                  <div className="flex items-center justify-between">
+                  <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center gap-2">
-                      <span className="text-xl font-bold text-white">₹{product.price}</span>
+                      <span className="text-xl font-bold text-white">
+                        {product.price === 0 ? "Free" : `₹${product.price}`}
+                      </span>
                       {product.originalPrice > product.price && (
                         <span className="text-sm text-gray-500 line-through">
                           ₹{product.originalPrice}
@@ -287,18 +211,41 @@ export default function Marketplace() {
                       </Badge>
                     )}
                   </div>
+                  
+                  <Button 
+                    className="w-full bg-pink-600 hover:bg-pink-700 text-white"
+                    onClick={() => window.open(product.url, '_blank')}
+                  >
+                    {product.price === 0 ? "Access Free" : "View Product"}
+                  </Button>
                 </CardContent>
               </Card>
-            </Link>
+            </div>
           ))}
         </div>
 
+        {filteredProducts.length === 0 && (
+          <div className="text-center py-16">
+            <h3 className="text-2xl font-semibold mb-4 text-white">No products found</h3>
+            <p className="text-gray-400 mb-8">Try adjusting your search criteria or browse all categories</p>
+            <Button onClick={() => {
+              setSearchQuery("");
+              setSelectedCategory("all");
+              setPriceFilter("all");
+            }} className="bg-pink-600 hover:bg-pink-700 text-white">
+              Clear Filters
+            </Button>
+          </div>
+        )}
+
         {/* Load More */}
-        <div className="text-center mt-12">
-          <Button size="lg" variant="outline" className="border-pink-500/50 text-pink-200 hover:bg-pink-500/20 hover:text-white hover:border-pink-400">
-            Load More Courses
-          </Button>
-        </div>
+        {filteredProducts.length > 0 && (
+          <div className="text-center mt-12">
+            <Button size="lg" variant="outline" className="border-pink-500/50 text-pink-200 hover:bg-pink-500/20 hover:text-white hover:border-pink-400">
+              Load More Courses
+            </Button>
+          </div>
+        )}
       </div>
     </div>
   );
