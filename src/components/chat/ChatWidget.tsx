@@ -6,7 +6,8 @@ import {
   Plus,
   Trash2,
   ArrowLeft,
-  Bot,
+  Sparkles,
+  Heart,
   User,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -20,6 +21,13 @@ import {
 } from "@/hooks/useChatThreads";
 
 const CHAT_URL = `${import.meta.env.VITE_SUPABASE_URL}/functions/v1/chat`;
+
+const QUICK_PROMPTS = [
+  "How do I find products?",
+  "How do I sign in?",
+  "How do I become a creator?",
+  "Tell me about pricing",
+];
 
 function titleFrom(text: string) {
   const t = text.trim().replace(/\s+/g, " ");
@@ -64,8 +72,8 @@ export function ChatWidget() {
     return createThread();
   };
 
-  const send = async () => {
-    const text = input.trim();
+  const send = async (override?: string) => {
+    const text = (override ?? input).trim();
     if (!text || streaming) return;
 
     const id = ensureThread();
@@ -159,39 +167,59 @@ export function ChatWidget() {
         <button
           onClick={() => setOpen(true)}
           aria-label="Open assistant"
-          className="fixed bottom-5 right-5 z-50 flex h-14 w-14 items-center justify-center rounded-full bg-primary text-primary-foreground shadow-lg transition-transform hover:scale-105"
+          className="group fixed bottom-5 right-5 z-50 flex h-16 w-16 items-center justify-center rounded-full bg-gradient-to-br from-pink-500 to-pink-700 text-white shadow-[0_8px_30px_rgba(236,72,153,0.45)] ring-1 ring-pink-400/40 transition-transform hover:scale-110"
         >
-          <MessageCircle className="h-6 w-6" />
+          <MessageCircle className="h-7 w-7" />
+          <span className="absolute right-0 top-0 flex h-3.5 w-3.5">
+            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-pink-300 opacity-75" />
+            <span className="relative inline-flex h-3.5 w-3.5 rounded-full bg-pink-200" />
+          </span>
         </button>
       )}
 
       {open && (
-        <div className="fixed bottom-5 right-5 z-50 flex h-[560px] max-h-[80vh] w-[min(380px,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-2xl border bg-background shadow-2xl">
+        <div className="fixed bottom-5 right-5 z-50 flex h-[580px] max-h-[82vh] w-[min(390px,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-3xl border border-pink-500/20 bg-[#120a12]/95 text-white shadow-[0_20px_60px_rgba(0,0,0,0.6)] backdrop-blur-xl">
           {/* Header */}
-          <div className="flex items-center gap-2 border-b bg-card px-4 py-3">
-            {view === "chat" ? (
+          <div className="flex items-center gap-3 border-b border-pink-500/15 bg-gradient-to-r from-pink-600/25 via-pink-500/10 to-transparent px-4 py-3">
+            {view === "chat" && threads.length > 0 ? (
               <Button
                 variant="ghost"
                 size="icon"
-                className="h-8 w-8"
+                className="h-8 w-8 text-pink-100 hover:bg-pink-500/20 hover:text-white"
                 onClick={() => setView("list")}
                 aria-label="Show chats"
               >
                 <ArrowLeft className="h-4 w-4" />
               </Button>
             ) : (
-              <Bot className="ml-1 h-5 w-5 text-primary" />
+              <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-pink-500 to-pink-700 shadow-md">
+                <Heart className="h-4 w-4 fill-white text-white" />
+              </div>
             )}
             <div className="flex-1">
-              <p className="text-sm font-semibold leading-none">KarmBot</p>
-              <p className="text-xs text-muted-foreground">
-                {view === "chat" ? "Here to help you navigate" : "Your chats"}
+              <p className="flex items-center gap-1 text-sm font-semibold leading-none">
+                KarmBot
+                <Sparkles className="h-3 w-3 text-pink-300" />
+              </p>
+              <p className="mt-1 text-xs text-pink-200/70">
+                {view === "chat" ? "Your KarmKosh guide" : "Your chats"}
               </p>
             </div>
+            {view === "chat" && (
+              <Button
+                variant="ghost"
+                size="icon"
+                className="h-8 w-8 text-pink-100 hover:bg-pink-500/20 hover:text-white"
+                onClick={startNew}
+                aria-label="New chat"
+              >
+                <Plus className="h-4 w-4" />
+              </Button>
+            )}
             <Button
               variant="ghost"
               size="icon"
-              className="h-8 w-8"
+              className="h-8 w-8 text-pink-100 hover:bg-pink-500/20 hover:text-white"
               onClick={() => setOpen(false)}
               aria-label="Close assistant"
             >
@@ -202,13 +230,17 @@ export function ChatWidget() {
           {view === "list" ? (
             <div className="flex flex-1 flex-col overflow-hidden">
               <div className="p-3">
-                <Button onClick={startNew} className="w-full gap-2" size="sm">
+                <Button
+                  onClick={startNew}
+                  className="w-full gap-2 bg-gradient-to-r from-pink-500 to-pink-700 text-white hover:opacity-90"
+                  size="sm"
+                >
                   <Plus className="h-4 w-4" /> New chat
                 </Button>
               </div>
               <ScrollArea className="flex-1 px-3 pb-3">
                 {threads.length === 0 && (
-                  <p className="px-1 py-6 text-center text-sm text-muted-foreground">
+                  <p className="px-1 py-6 text-center text-sm text-pink-200/60">
                     No chats yet. Start a new one!
                   </p>
                 )}
@@ -217,12 +249,12 @@ export function ChatWidget() {
                     <div
                       key={t.id}
                       className={cn(
-                        "group flex items-center gap-2 rounded-lg px-3 py-2 transition-colors hover:bg-accent",
-                        t.id === activeId && "bg-accent",
+                        "group flex items-center gap-2 rounded-xl px-3 py-2.5 transition-colors hover:bg-pink-500/10",
+                        t.id === activeId && "bg-pink-500/15 ring-1 ring-pink-500/30",
                       )}
                     >
                       <button
-                        className="flex-1 truncate text-left text-sm"
+                        className="flex-1 truncate text-left text-sm text-white/90"
                         onClick={() => {
                           setActiveId(t.id);
                           setView("chat");
@@ -232,7 +264,7 @@ export function ChatWidget() {
                       </button>
                       <button
                         aria-label="Delete chat"
-                        className="text-muted-foreground opacity-0 transition-opacity hover:text-destructive group-hover:opacity-100"
+                        className="text-pink-200/50 opacity-0 transition-opacity hover:text-destructive group-hover:opacity-100"
                         onClick={() => deleteThread(t.id)}
                       >
                         <Trash2 className="h-4 w-4" />
@@ -246,12 +278,27 @@ export function ChatWidget() {
             <>
               <div ref={scrollRef} className="flex-1 space-y-4 overflow-y-auto p-4">
                 {messages.length === 0 && !draft && (
-                  <div className="flex flex-col items-center gap-2 pt-8 text-center">
-                    <Bot className="h-10 w-10 text-primary" />
-                    <p className="text-sm font-medium">Hi, I'm KarmBot 👋</p>
-                    <p className="text-xs text-muted-foreground">
-                      Ask me how to find products, sign in, or get around KarmKosh.
-                    </p>
+                  <div className="flex flex-col items-center gap-3 pt-6 text-center">
+                    <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-500 to-pink-700 shadow-lg">
+                      <Heart className="h-7 w-7 fill-white text-white" />
+                    </div>
+                    <div>
+                      <p className="text-sm font-semibold">Hi, I'm KarmBot 👋</p>
+                      <p className="mt-1 text-xs text-pink-200/70">
+                        Ask me how to find products, sign in, or get around KarmKosh.
+                      </p>
+                    </div>
+                    <div className="mt-2 flex flex-col gap-2">
+                      {QUICK_PROMPTS.map((q) => (
+                        <button
+                          key={q}
+                          onClick={() => send(q)}
+                          className="rounded-full border border-pink-500/25 bg-pink-500/10 px-3 py-1.5 text-xs text-pink-100 transition-colors hover:bg-pink-500/20"
+                        >
+                          {q}
+                        </button>
+                      ))}
+                    </div>
                   </div>
                 )}
                 {messages.map((m, i) => (
@@ -261,13 +308,18 @@ export function ChatWidget() {
                   <MessageBubble message={{ role: "assistant", content: draft }} />
                 )}
                 {streaming && !draft && (
-                  <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                    <Bot className="h-4 w-4" /> Thinking…
+                  <div className="flex items-center gap-2 text-xs text-pink-200/70">
+                    <span className="flex gap-1">
+                      <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-pink-400 [animation-delay:-0.3s]" />
+                      <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-pink-400 [animation-delay:-0.15s]" />
+                      <span className="h-1.5 w-1.5 animate-bounce rounded-full bg-pink-400" />
+                    </span>
+                    KarmBot is thinking…
                   </div>
                 )}
               </div>
 
-              <div className="border-t p-3">
+              <div className="border-t border-pink-500/15 bg-black/20 p-3">
                 <div className="flex items-end gap-2">
                   <textarea
                     ref={inputRef}
@@ -280,14 +332,15 @@ export function ChatWidget() {
                         send();
                       }
                     }}
-                    placeholder="Ask anything about the app…"
-                    className="max-h-28 flex-1 resize-none rounded-lg border bg-background px-3 py-2 text-sm outline-none focus:ring-2 focus:ring-ring"
+                    placeholder="Ask anything about KarmKosh…"
+                    className="max-h-28 flex-1 resize-none rounded-xl border border-pink-500/25 bg-white/5 px-3 py-2.5 text-sm text-white placeholder:text-pink-200/40 outline-none transition-colors focus:border-pink-500/50 focus:ring-2 focus:ring-pink-500/30"
                   />
                   <Button
                     size="icon"
-                    onClick={send}
+                    onClick={() => send()}
                     disabled={streaming || !input.trim()}
                     aria-label="Send message"
+                    className="h-10 w-10 shrink-0 rounded-xl bg-gradient-to-br from-pink-500 to-pink-700 text-white hover:opacity-90 disabled:opacity-40"
                   >
                     <Send className="h-4 w-4" />
                   </Button>
@@ -307,18 +360,20 @@ function MessageBubble({ message }: { message: ChatMessage }) {
     <div className={cn("flex gap-2", isUser && "flex-row-reverse")}>
       <div
         className={cn(
-          "flex h-7 w-7 shrink-0 items-center justify-center rounded-full",
-          isUser ? "bg-primary text-primary-foreground" : "bg-muted text-foreground",
+          "flex h-8 w-8 shrink-0 items-center justify-center rounded-full shadow-sm",
+          isUser
+            ? "bg-gradient-to-br from-pink-500 to-pink-700 text-white"
+            : "bg-white/10 text-pink-200",
         )}
       >
-        {isUser ? <User className="h-4 w-4" /> : <Bot className="h-4 w-4" />}
+        {isUser ? <User className="h-4 w-4" /> : <Heart className="h-4 w-4 fill-pink-300 text-pink-300" />}
       </div>
       <div
         className={cn(
-          "max-w-[78%] whitespace-pre-wrap rounded-2xl px-3 py-2 text-sm",
+          "max-w-[78%] whitespace-pre-wrap rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed",
           isUser
-            ? "bg-primary text-primary-foreground"
-            : "bg-muted text-foreground",
+            ? "rounded-br-sm bg-gradient-to-br from-pink-500 to-pink-700 text-white"
+            : "rounded-bl-sm bg-white/8 text-white/90",
         )}
       >
         {message.content}
