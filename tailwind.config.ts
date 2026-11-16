@@ -18,7 +18,15 @@ export default {
 			}
 		},
 		extend: {
+			fontFamily: {
+				sans: ['Manrope', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+				display: ['"Instrument Serif"', 'ui-serif', 'Georgia', 'serif']
+			},
 			colors: {
+				brand: {
+					rose: 'hsl(var(--brand-rose) / <alpha-value>)',
+					gold: 'hsl(var(--brand-gold) / <alpha-value>)'
+				},
 				border: 'hsl(var(--border))',
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',

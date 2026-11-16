@@ -1,158 +1,201 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+/* KarmKosh design system — rose gold on warm obsidian. Dark is the only theme. */
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --brand-rose: 341 86% 74%;
+    --brand-gold: 36 64% 74%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --background: 330 16% 4%;
+    --foreground: 30 24% 94%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --card: 330 12% 7%;
+    --card-foreground: 30 24% 94%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    --popover: 330 12% 8%;
+    --popover-foreground: 30 24% 94%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    --primary: 341 86% 74%;
+    --primary-foreground: 335 40% 8%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --secondary: 330 8% 13%;
+    --secondary-foreground: 30 24% 94%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --muted: 330 8% 12%;
+    --muted-foreground: 330 7% 64%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --accent: 330 8% 14%;
+    --accent-foreground: 30 24% 96%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --destructive: 0 72% 56%;
+    --destructive-foreground: 0 0% 100%;
 
-    --radius: 0.5rem;
+    --border: 330 8% 16%;
+    --input: 330 8% 19%;
+    --ring: 341 86% 74%;
 
-    --sidebar-background: 0 0% 98%;
+    --radius: 0.875rem;
 
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: 330 12% 6%;
+    --sidebar-foreground: 30 24% 90%;
+    --sidebar-primary: 341 86% 74%;
+    --sidebar-primary-foreground: 335 40% 8%;
+    --sidebar-accent: 330 8% 13%;
+    --sidebar-accent-foreground: 30 24% 94%;
+    --sidebar-border: 330 8% 16%;
+    --sidebar-ring: 341 86% 74%;
   }
 
-  .dark {
-    --background: 222.2 84% 4.9%;
-    --foreground: 210 40% 98%;
-
-    --card: 222.2 84% 4.9%;
-    --card-foreground: 210 40% 98%;
-
-    --popover: 222.2 84% 4.9%;
-    --popover-foreground: 210 40% 98%;
-
-    --primary: 210 40% 98%;
-    --primary-foreground: 222.2 47.4% 11.2%;
-
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
-
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
-
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
-
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
-  }
-}
-
-@layer base {
   * {
     @apply border-border;
   }
 
-  body {
-    @apply text-white;
-    background: linear-gradient(135deg, #000000 0%, #1a1a1a 25%, #2d1b2e 50%, #1a1a1a 75%, #000000 100%);
-    min-height: 100vh;
-    position: relative;
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
   }
 
+  body {
+    @apply bg-background text-foreground font-sans antialiased;
+    min-height: 100vh;
+    font-feature-settings: "ss01", "cv11";
+    text-rendering: optimizeLegibility;
+  }
+
+  /* Ambient light: two soft glows and a faint grain, fixed behind everything. */
   body::before {
     content: "";
     position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-image: 
-      radial-gradient(circle at 10% 20%, rgba(236, 72, 153, 0.1) 0%, transparent 15%),
-      radial-gradient(circle at 80% 80%, rgba(236, 72, 153, 0.08) 0%, transparent 12%),
-      radial-gradient(circle at 40% 40%, rgba(236, 72, 153, 0.06) 0%, transparent 10%),
-      radial-gradient(circle at 90% 10%, rgba(236, 72, 153, 0.05) 0%, transparent 8%),
-      radial-gradient(circle at 20% 80%, rgba(236, 72, 153, 0.07) 0%, transparent 14%),
-      radial-gradient(circle at 60% 20%, rgba(236, 72, 153, 0.04) 0%, transparent 9%);
-    background-size: 300px 300px, 250px 250px, 200px 200px, 180px 180px, 320px 320px, 220px 220px;
-    animation: float 20s ease-in-out infinite;
+    inset: 0;
+    z-index: -2;
     pointer-events: none;
+    background:
+      radial-gradient(60rem 36rem at 50% -12rem, hsl(var(--brand-rose) / 0.16), transparent 70%),
+      radial-gradient(40rem 30rem at 100% 30%, hsl(var(--brand-gold) / 0.07), transparent 70%),
+      radial-gradient(44rem 32rem at 0% 75%, hsl(var(--brand-rose) / 0.06), transparent 70%);
+  }
+
+  body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
     z-index: -1;
+    pointer-events: none;
+    opacity: 0.05;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
-  @keyframes float {
-    0%, 100% {
-      transform: translateY(0px) rotate(0deg);
-    }
-    50% {
-      transform: translateY(-20px) rotate(180deg);
-    }
+  ::selection {
+    background: hsl(var(--brand-rose) / 0.35);
+    color: #fff;
+  }
+
+  h1, h2, h3 {
+    text-wrap: balance;
   }
 }
 
-/* Heart shapes using CSS */
-.heart-bg::after {
-  content: "♥";
-  position: absolute;
-  color: rgba(236, 72, 153, 0.1);
-  font-size: 20px;
-  animation: heartbeat 3s ease-in-out infinite;
+@layer components {
+  /* Large editorial headings */
+  .display {
+    @apply font-display font-normal tracking-[-0.02em] leading-[1.04];
+  }
+
+  .text-gradient {
+    background-image: linear-gradient(100deg, hsl(var(--brand-rose)) 0%, #f6c3b0 45%, hsl(var(--brand-gold)) 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-[0.7rem] font-semibold uppercase tracking-[0.22em] text-brand-gold;
+  }
+
+  .eyebrow::before {
+    content: "";
+    @apply h-px w-6 bg-brand-gold/60;
+  }
+
+  /* Glass surface used for cards, bars and panels */
+  .surface {
+    @apply rounded-2xl border border-white/[0.08] bg-white/[0.025] backdrop-blur-xl;
+    box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.04), 0 24px 48px -32px rgb(0 0 0 / 0.8);
+  }
+
+  .surface-hover {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:border-brand-rose/30 hover:bg-white/[0.045];
+  }
+
+  .surface-hover:hover {
+    box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.06), 0 32px 60px -30px hsl(var(--brand-rose) / 0.28);
+  }
+
+  /* Icon tile */
+  .icon-tile {
+    @apply flex h-12 w-12 shrink-0 items-center justify-center rounded-xl border border-brand-rose/20 text-brand-rose;
+    background: linear-gradient(140deg, hsl(var(--brand-rose) / 0.16), hsl(var(--brand-gold) / 0.06));
+  }
+
+  /* Hairline with a glow in the middle, for section dividers */
+  .hairline {
+    @apply h-px w-full;
+    background: linear-gradient(90deg, transparent, rgb(255 255 255 / 0.14), transparent);
+  }
+
+  /* Panel with a rose-gold gradient border */
+  .gradient-frame {
+    position: relative;
+    @apply rounded-[1.75rem];
+    background:
+      linear-gradient(hsl(330 14% 6%), hsl(330 14% 6%)) padding-box,
+      linear-gradient(135deg, hsl(var(--brand-rose) / 0.7), rgb(255 255 255 / 0.06) 40%, hsl(var(--brand-gold) / 0.6)) border-box;
+    border: 1px solid transparent;
+  }
+
+  .field {
+    @apply h-11 rounded-xl border-white/10 bg-white/[0.04] placeholder:text-muted-foreground/70;
+  }
+
+  .section {
+    @apply py-20 md:py-28;
+  }
 }
 
-@keyframes heartbeat {
-  0% {
-    transform: scale(1);
-    opacity: 0.1;
+@layer utilities {
+  .tabular {
+    font-variant-numeric: tabular-nums;
   }
-  50% {
-    transform: scale(1.1);
-    opacity: 0.2;
+
+  .animate-in-up {
+    animation: in-up 0.7s cubic-bezier(0.2, 0.7, 0.2, 1) both;
   }
-  100% {
-    transform: scale(1);
-    opacity: 0.1;
+
+  .delay-1 { animation-delay: 80ms; }
+  .delay-2 { animation-delay: 160ms; }
+  .delay-3 { animation-delay: 240ms; }
+  .delay-4 { animation-delay: 320ms; }
+}
+
+@keyframes in-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-in-up {
+    animation: none;
+  }
+
+  html {
+    scroll-behavior: auto;
   }
 }

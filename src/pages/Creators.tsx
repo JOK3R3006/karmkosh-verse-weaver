@@ -1,229 +1,214 @@
-
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { 
-  DollarSign, 
-  Users, 
-  TrendingUp, 
-  Shield, 
-  Zap, 
-  Globe,
-  CheckCircle,
-  ArrowRight,
-  Play,
-  BarChart3
-} from "lucide-react";
+import { DollarSign, Users, Shield, Zap, Globe, ArrowRight, Play, BarChart3, Check } from "lucide-react";
 import { Link } from "react-router-dom";
+import { SectionHeading } from "@/components/brand/SectionHeading";
 
 export default function Creators() {
   const benefits = [
     {
       icon: DollarSign,
       title: "Keep 90% of Your Earnings",
-      description: "We only take 10% commission. You keep the majority of what you earn."
+      description: "We only take 10% commission. You keep the majority of what you earn.",
     },
     {
       icon: Users,
       title: "Built-in Audience",
-      description: "Tap into our growing community of learners and buyers."
+      description: "Tap into our growing community of learners and buyers.",
     },
     {
       icon: Zap,
       title: "Easy Setup",
-      description: "Get your course live in minutes with our intuitive creator tools."
+      description: "Get your course live in minutes with our intuitive creator tools.",
     },
     {
       icon: Shield,
       title: "Secure Payments",
-      description: "We handle all payments and provide secure file delivery."
+      description: "We handle all payments and provide secure file delivery.",
     },
     {
       icon: Globe,
       title: "Global Reach",
-      description: "Sell to customers worldwide with multi-currency support."
+      description: "Sell to customers worldwide with multi-currency support.",
     },
     {
       icon: BarChart3,
       title: "Analytics & Insights",
-      description: "Track your performance with detailed analytics and reports."
-    }
+      description: "Track your performance with detailed analytics and reports.",
+    },
   ];
 
   const steps = [
+    { step: "01", title: "Sign Up", description: "Create your creator account in under 2 minutes" },
+    { step: "02", title: "Upload Content", description: "Add your courses, ebooks, or digital products" },
+    { step: "03", title: "Set Your Price", description: "You decide the pricing - we suggest what works" },
+    { step: "04", title: "Start Earning", description: "Get paid weekly with our fast payout system" },
+  ];
+
+  const highlights = [
+    { value: "New Platform", label: "Growing Community" },
+    { value: "90%", label: "Revenue Share" },
+    { value: "Easy", label: "Setup Process" },
+  ];
+
+  const audiences = [
     {
-      step: "1",
-      title: "Sign Up",
-      description: "Create your creator account in under 2 minutes"
+      title: "Perfect for Beginners",
+      description:
+        "Never created digital products before? No problem! Our platform is designed for first-time creators.",
+      point: "Step-by-step guidance",
     },
     {
-      step: "2",
-      title: "Upload Content",
-      description: "Add your courses, ebooks, or digital products"
+      title: "Share Your Skills",
+      description:
+        "Whether it's coding, design, cooking, or any other skill - there's an audience waiting to learn from you.",
+      point: "Any topic works",
     },
     {
-      step: "3",
-      title: "Set Your Price",
-      description: "You decide the pricing - we suggest what works"
+      title: "Build Your Business",
+      description:
+        "Start small and grow over time. Many successful creators started with just one simple product.",
+      point: "Scale at your pace",
     },
-    {
-      step: "4",
-      title: "Start Earning",
-      description: "Get paid weekly with our fast payout system"
-    }
   ];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-pink-950">
-      {/* Hero Section */}
-      <section className="py-20 relative">
-        <div className="absolute inset-0 bg-gradient-to-r from-pink-500/10 to-purple-500/10 animate-pulse"></div>
-        <div className="container mx-auto px-4 text-center relative z-10">
-          <h1 className="text-5xl font-bold mb-6 text-white">
-            Turn Your Knowledge Into 
-            <span className="text-pink-400"> Income</span>
+    <div className="overflow-x-clip">
+      {/* Hero */}
+      <section className="pb-20 pt-16 md:pb-28 md:pt-24">
+        <div className="container mx-auto px-4 text-center">
+          <p className="eyebrow animate-in-up mb-6">For creators</p>
+          <h1 className="display animate-in-up delay-1 mx-auto max-w-4xl text-5xl text-foreground sm:text-7xl lg:text-[5.5rem]">
+            Turn Your Knowledge Into <span className="text-gradient italic">Income</span>
           </h1>
-          <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
-            Start your creator journey on KarmKosh. Create courses, sell digital products, 
-            and build your online business from scratch.
+          <p className="animate-in-up delay-2 mx-auto mt-7 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+            Start your creator journey on KarmKosh. Create courses, sell digital products, and build your online
+            business from scratch.
           </p>
-          <div className="flex gap-4 justify-center">
-            <Link to="/auth?mode=signup">
-              <Button size="lg" className="px-8 py-4 text-lg bg-pink-600 hover:bg-pink-700 text-white">
+          <div className="animate-in-up delay-3 mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+            <Button size="lg" className="w-full sm:w-auto" asChild>
+              <Link to="/auth?mode=signup">
                 Start Creating Today
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-            </Link>
-            <Button size="lg" variant="outline" className="px-8 py-4 text-lg border-pink-500/50 text-pink-200 hover:bg-pink-500/20 hover:text-white hover:border-pink-400">
-              <Play className="w-5 h-5 mr-2" />
+                <ArrowRight />
+              </Link>
+            </Button>
+            <Button size="lg" variant="outline" className="w-full sm:w-auto">
+              <Play />
               Watch Demo
             </Button>
           </div>
-          
-          <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-pink-400">New Platform</div>
-              <div className="text-gray-300">Growing Community</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-pink-400">90%</div>
-              <div className="text-gray-300">Revenue Share</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-pink-400">Easy</div>
-              <div className="text-gray-300">Setup Process</div>
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Benefits Section */}
-      <section className="py-16 bg-gray-900/50 backdrop-blur-sm">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 text-white">Why Choose KarmKosh?</h2>
-            <p className="text-xl text-gray-300">Everything you need to succeed as a creator</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {benefits.map((benefit, index) => (
-              <Card key={index} className="text-center hover:shadow-lg hover:shadow-pink-500/20 transition-all duration-300 hover:scale-105 hover:border-pink-500 hover:border-2 bg-gray-900/80 border-gray-700 backdrop-blur-sm">
-                <CardHeader>
-                  <div className="w-16 h-16 bg-pink-500/20 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <benefit.icon className="w-8 h-8 text-pink-400" />
-                  </div>
-                  <CardTitle className="text-xl text-white">{benefit.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-gray-300">{benefit.description}</p>
-                </CardContent>
-              </Card>
+          <dl className="surface animate-in-up delay-4 mx-auto mt-16 grid max-w-4xl grid-cols-1 divide-y divide-white/[0.07] overflow-hidden md:mt-20 md:grid-cols-3 md:divide-x md:divide-y-0">
+            {highlights.map((item) => (
+              <div key={item.label} className="px-4 py-7">
+                <dd className="display text-gradient text-4xl md:text-[2.75rem]">{item.value}</dd>
+                <dt className="mt-2 text-xs font-medium uppercase tracking-[0.14em] text-muted-foreground">
+                  {item.label}
+                </dt>
+              </div>
             ))}
-          </div>
+          </dl>
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="py-16">
+      {/* Benefits */}
+      <section className="section relative">
+        <div className="hairline absolute inset-x-0 top-0" />
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 text-white">How It Works</h2>
-            <p className="text-xl text-gray-300">Get started in 4 simple steps</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {steps.map((step, index) => (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-pink-600 text-white rounded-full flex items-center justify-center mx-auto mb-4 text-xl font-bold hover:bg-pink-700 transition-colors">
-                  {step.step}
+          <SectionHeading
+            eyebrow="Benefits"
+            title="Why Choose KarmKosh?"
+            description="Everything you need to succeed as a creator"
+          />
+
+          <div className="grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3">
+            {benefits.map((benefit) => (
+              <div key={benefit.title} className="surface surface-hover p-8">
+                <div className="icon-tile">
+                  <benefit.icon className="h-5 w-5" strokeWidth={1.75} />
                 </div>
-                <h3 className="text-xl font-semibold mb-2 text-white">{step.title}</h3>
-                <p className="text-gray-300">{step.description}</p>
+                <h3 className="mt-7 text-xl font-semibold tracking-tight text-foreground">{benefit.title}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-muted-foreground">{benefit.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Getting Started Section */}
-      <section className="py-16 bg-gray-900/50 backdrop-blur-sm">
+      {/* How it works */}
+      <section className="section relative">
+        <div className="hairline absolute inset-x-0 top-0" />
         <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold mb-4 text-white">Ready to Start?</h2>
-            <p className="text-xl text-gray-300">Join KarmKosh and begin your creator journey today</p>
-          </div>
-          
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto">
-            <Card className="text-center hover:shadow-lg hover:shadow-pink-500/20 transition-all duration-300 hover:scale-105 hover:border-pink-500 hover:border-2 bg-gray-900/80 border-gray-700 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-xl text-white">Perfect for Beginners</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-300 mb-4">Never created digital products before? No problem! Our platform is designed for first-time creators.</p>
-                <div className="text-sm text-pink-400">✓ Step-by-step guidance</div>
-              </CardContent>
-            </Card>
+          <SectionHeading eyebrow="Process" title="How It Works" description="Get started in 4 simple steps" />
 
-            <Card className="text-center hover:shadow-lg hover:shadow-pink-500/20 transition-all duration-300 hover:scale-105 hover:border-pink-500 hover:border-2 bg-gray-900/80 border-gray-700 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-xl text-white">Share Your Skills</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-300 mb-4">Whether it's coding, design, cooking, or any other skill - there's an audience waiting to learn from you.</p>
-                <div className="text-sm text-pink-400">✓ Any topic works</div>
-              </CardContent>
-            </Card>
+          <ol className="grid grid-cols-1 gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-4">
+            {steps.map((step) => (
+              <li key={step.step} className="relative border-t border-white/10 pt-6">
+                <span aria-hidden className="absolute -top-px left-0 h-px w-12 bg-gradient-to-r from-brand-rose to-brand-gold" />
+                <span className="display text-gradient text-6xl">{step.step}</span>
+                <h3 className="mt-4 text-xl font-semibold tracking-tight text-foreground">{step.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{step.description}</p>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
 
-            <Card className="text-center hover:shadow-lg hover:shadow-pink-500/20 transition-all duration-300 hover:scale-105 hover:border-pink-500 hover:border-2 bg-gray-900/80 border-gray-700 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-xl text-white">Build Your Business</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <p className="text-gray-300 mb-4">Start small and grow over time. Many successful creators started with just one simple product.</p>
-                <div className="text-sm text-pink-400">✓ Scale at your pace</div>
-              </CardContent>
-            </Card>
+      {/* Getting started */}
+      <section className="section relative">
+        <div className="hairline absolute inset-x-0 top-0" />
+        <div className="container mx-auto px-4">
+          <SectionHeading
+            eyebrow="Who it's for"
+            title="Ready to Start?"
+            description="Join KarmKosh and begin your creator journey today"
+          />
+
+          <div className="mx-auto grid max-w-5xl grid-cols-1 gap-5 md:grid-cols-3">
+            {audiences.map((audience) => (
+              <div key={audience.title} className="surface surface-hover flex flex-col p-8">
+                <h3 className="display text-3xl text-foreground">{audience.title}</h3>
+                <p className="mt-4 flex-1 text-sm leading-relaxed text-muted-foreground">{audience.description}</p>
+                <p className="mt-6 flex items-center gap-2 border-t border-white/[0.07] pt-5 text-sm font-medium text-brand-rose">
+                  <Check className="h-4 w-4" strokeWidth={2.5} />
+                  {audience.point}
+                </p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
 
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-pink-600/80 to-purple-600/80 backdrop-blur-sm text-white">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold mb-6">Ready to Start Your Creator Journey?</h2>
-          <p className="text-xl mb-8 opacity-90">
-            Take the first step towards building your online business
-          </p>
-          <div className="flex gap-4 justify-center">
-            <Link to="/auth?mode=signup">
-              <Button size="lg" variant="secondary" className="px-8 py-4 text-lg bg-white text-pink-600 hover:bg-gray-100">
-                Create Free Account
-              </Button>
-            </Link>
-            <Link to="/pricing">
-              <Button size="lg" variant="outline" className="px-8 py-4 text-lg text-white border-white hover:bg-white hover:text-pink-600">
-                View Pricing
-              </Button>
-            </Link>
+      {/* CTA */}
+      <section className="pb-24 pt-4 md:pb-32">
+        <div className="container mx-auto px-4">
+          <div className="gradient-frame relative overflow-hidden px-6 py-16 text-center md:px-16 md:py-24">
+            <div
+              aria-hidden
+              className="pointer-events-none absolute inset-0"
+              style={{
+                background:
+                  "radial-gradient(50% 80% at 50% 0%, hsl(var(--brand-rose) / 0.22), transparent 70%), radial-gradient(40% 60% at 85% 100%, hsl(var(--brand-gold) / 0.14), transparent 70%)",
+              }}
+            />
+            <div className="relative">
+              <h2 className="display mx-auto max-w-3xl text-5xl text-foreground md:text-7xl">
+                Ready to Start Your <span className="text-gradient italic">Creator Journey?</span>
+              </h2>
+              <p className="mx-auto mt-6 max-w-xl text-base text-muted-foreground md:text-lg">
+                Take the first step towards building your online business
+              </p>
+              <div className="mt-10 flex flex-col items-center justify-center gap-3 sm:flex-row">
+                <Button size="lg" className="w-full sm:w-auto" asChild>
+                  <Link to="/auth?mode=signup">
+                    Create Free Account
+                    <ArrowRight />
+                  </Link>
+                </Button>
+                <Button size="lg" variant="outline" className="w-full sm:w-auto" asChild>
+                  <Link to="/pricing">View Pricing</Link>
+                </Button>
+              </div>
+            </div>
           </div>
         </div>
       </section>

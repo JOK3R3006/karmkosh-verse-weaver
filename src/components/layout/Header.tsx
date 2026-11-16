@@ -1,109 +1,115 @@
-
+import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Store, Menu, User, ShoppingCart } from "lucide-react";
-import { 
-  NavigationMenu,
-  NavigationMenuContent,
-  NavigationMenuItem,
-  NavigationMenuLink,
-  NavigationMenuList,
-  NavigationMenuTrigger,
-} from "@/components/ui/navigation-menu";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { ArrowRight, Menu } from "lucide-react";
+import { Sheet, SheetContent, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
+import { Logo } from "@/components/brand/Logo";
+import { cn } from "@/lib/utils";
+
+const navigation = [
+  { name: "Home", href: "/" },
+  { name: "Marketplace", href: "/marketplace" },
+  { name: "Creators", href: "/creators" },
+  { name: "Pricing", href: "/pricing" },
+];
 
 export function Header() {
   const location = useLocation();
+  const [scrolled, setScrolled] = useState(false);
+  const [menuOpen, setMenuOpen] = useState(false);
 
-  const navigation = [
-    { name: "Home", href: "/" },
-    { name: "Marketplace", href: "/marketplace" },
-    { name: "Creators", href: "/creators" },
-    { name: "Pricing", href: "/pricing" },
-  ];
+  useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 8);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
-  const isActive = (path: string) => {
-    return location.pathname === path;
-  };
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [location.pathname]);
+
+  const isActive = (path: string) => location.pathname === path;
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-gray-800 bg-black/95 backdrop-blur supports-[backdrop-filter]:bg-black/60">
-      <div className="container mx-auto px-4 flex h-16 items-center justify-between">
-        {/* Logo */}
-        <Link to="/" className="flex items-center space-x-2">
-          <div className="w-8 h-8 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg flex items-center justify-center">
-            <Store className="w-5 h-5 text-white" />
-          </div>
-          <span className="font-bold text-xl text-white">KarmKosh</span>
-        </Link>
+    <header
+      className={cn(
+        "sticky top-0 z-50 w-full border-b transition-colors duration-300",
+        scrolled ? "border-white/[0.08] bg-background/75 backdrop-blur-xl" : "border-transparent bg-transparent",
+      )}
+    >
+      <div className="container mx-auto flex h-[4.5rem] items-center justify-between px-4">
+        <Logo />
 
-        {/* Desktop Navigation */}
-        <NavigationMenu className="hidden md:flex">
-          <NavigationMenuList>
-            {navigation.map((item) => (
-              <NavigationMenuItem key={item.name}>
-                <Link to={item.href}>
-                  <NavigationMenuLink 
-                    className={`group inline-flex h-10 w-max items-center justify-center rounded-md px-4 py-2 text-sm font-medium transition-colors hover:bg-pink-500/20 hover:text-pink-200 focus:bg-pink-500/20 focus:text-pink-200 focus:outline-none disabled:pointer-events-none disabled:opacity-50 ${
-                      isActive(item.href) ? 'bg-pink-500/20 text-pink-200' : 'text-white'
-                    }`}
-                  >
-                    {item.name}
-                  </NavigationMenuLink>
-                </Link>
-              </NavigationMenuItem>
-            ))}
-          </NavigationMenuList>
-        </NavigationMenu>
+        {/* Desktop navigation */}
+        <nav
+          aria-label="Main"
+          className="hidden items-center gap-1 rounded-full border border-white/[0.08] bg-white/[0.03] p-1 backdrop-blur-xl md:flex"
+        >
+          {navigation.map((item) => (
+            <Link
+              key={item.name}
+              to={item.href}
+              aria-current={isActive(item.href) ? "page" : undefined}
+              className={cn(
+                "rounded-full px-4 py-1.5 text-sm font-medium transition-colors",
+                isActive(item.href)
+                  ? "bg-white/10 text-foreground shadow-[inset_0_1px_0_rgb(255_255_255/0.08)]"
+                  : "text-muted-foreground hover:text-foreground",
+              )}
+            >
+              {item.name}
+            </Link>
+          ))}
+        </nav>
 
-        {/* Desktop Actions */}
-        <div className="hidden md:flex items-center space-x-4">
-          <Link to="/dashboard">
-            <Button variant="ghost" size="sm" className="text-white hover:bg-pink-500/20 hover:text-pink-200">
-              <User className="w-4 h-4 mr-2" />
-              Dashboard
-            </Button>
-          </Link>
-          <Link to="/auth">
-            <Button size="sm" className="bg-pink-600 text-white hover:bg-pink-700">
+        {/* Desktop actions */}
+        <div className="hidden items-center gap-2 md:flex">
+          <Button variant="ghost" size="sm" asChild>
+            <Link to="/dashboard">Dashboard</Link>
+          </Button>
+          <Button size="sm" asChild>
+            <Link to="/auth">
               Get Started
-            </Button>
-          </Link>
+              <ArrowRight />
+            </Link>
+          </Button>
         </div>
 
-        {/* Mobile Navigation */}
-        <Sheet>
+        {/* Mobile navigation */}
+        <Sheet open={menuOpen} onOpenChange={setMenuOpen}>
           <SheetTrigger asChild>
-            <Button variant="ghost" size="sm" className="md:hidden text-white">
-              <Menu className="w-5 h-5" />
+            <Button variant="outline" size="icon" className="md:hidden" aria-label="Open menu">
+              <Menu />
             </Button>
           </SheetTrigger>
-          <SheetContent side="right" className="w-[300px] bg-gray-900 border-gray-800">
-            <div className="flex flex-col space-y-4 mt-8">
+          <SheetContent side="right" className="w-[300px] border-white/10 bg-background/95 backdrop-blur-xl">
+            <SheetTitle className="sr-only">Menu</SheetTitle>
+            <Logo />
+            <nav aria-label="Mobile" className="mt-10 flex flex-col">
               {navigation.map((item) => (
                 <Link
                   key={item.name}
                   to={item.href}
-                  className={`text-lg font-medium transition-colors hover:text-pink-400 ${
-                    isActive(item.href) ? 'text-pink-400' : 'text-white'
-                  }`}
+                  className={cn(
+                    "display border-b border-white/[0.06] py-4 text-3xl transition-colors",
+                    isActive(item.href) ? "text-gradient" : "text-foreground/80 hover:text-foreground",
+                  )}
                 >
                   {item.name}
                 </Link>
               ))}
-              <div className="border-t border-gray-800 pt-4 space-y-2">
-                <Link to="/dashboard">
-                  <Button variant="outline" className="w-full border-gray-700 text-white hover:bg-pink-500/20">
-                    <User className="w-4 h-4 mr-2" />
-                    Dashboard
-                  </Button>
-                </Link>
+            </nav>
+            <div className="mt-8 grid gap-3">
+              <Button variant="outline" asChild>
+                <Link to="/dashboard">Dashboard</Link>
+              </Button>
+              <Button asChild>
                 <Link to="/auth">
-                  <Button className="w-full bg-pink-600 hover:bg-pink-700">
-                    Get Started
-                  </Button>
+                  Get Started
+                  <ArrowRight />
                 </Link>
-              </div>
+              </Button>
             </div>
           </SheetContent>
         </Sheet>

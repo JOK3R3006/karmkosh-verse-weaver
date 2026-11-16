@@ -1,77 +1,87 @@
-
 import { Link } from "react-router-dom";
-import { Store, Twitter, Github, Linkedin, Mail } from "lucide-react";
+import { Twitter, Github, Linkedin } from "lucide-react";
+import { Logo } from "@/components/brand/Logo";
+
+const columns = [
+  {
+    title: "Product",
+    links: [
+      { label: "Marketplace", to: "/marketplace" },
+      { label: "Features", to: "/features" },
+      { label: "Pricing", to: "/pricing" },
+      { label: "Integrations", to: "/integrations" },
+    ],
+  },
+  {
+    title: "For Creators",
+    links: [
+      { label: "Get Started", to: "/creators" },
+      { label: "Resources", to: "/resources" },
+      { label: "Community", to: "/community" },
+      { label: "Case Studies", to: "/case-studies" },
+    ],
+  },
+  {
+    title: "Support",
+    links: [
+      { label: "Help Center", to: "/help" },
+      { label: "Contact Us", to: "/contact" },
+      { label: "Privacy Policy", to: "/privacy" },
+      { label: "Terms of Service", to: "/terms" },
+    ],
+  },
+];
+
+const socials = [
+  { label: "Twitter", icon: Twitter },
+  { label: "GitHub", icon: Github },
+  { label: "LinkedIn", icon: Linkedin },
+];
 
 export function Footer() {
   return (
-    <footer className="bg-gray-900/80 border-t border-gray-800 mt-auto">
-      <div className="container mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
-          {/* Brand */}
-          <div className="space-y-4">
-            <Link to="/" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-gradient-to-r from-pink-600 to-purple-600 rounded-lg flex items-center justify-center">
-                <Store className="w-5 h-5 text-white" />
-              </div>
-              <span className="font-bold text-xl text-white">KarmKosh</span>
-            </Link>
-            <p className="text-gray-300 text-sm">
+    <footer className="relative mt-auto">
+      <div className="hairline" />
+      <div className="container mx-auto px-4 py-16">
+        <div className="grid grid-cols-2 gap-10 md:grid-cols-12">
+          <div className="col-span-2 md:col-span-5">
+            <Logo />
+            <p className="mt-5 max-w-xs text-sm leading-relaxed text-muted-foreground">
               The ultimate platform for creators to sell digital products and build communities.
             </p>
-            <div className="flex space-x-4">
-              <a href="#" className="text-gray-400 hover:text-pink-400 transition-colors">
-                <Twitter className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-pink-400 transition-colors">
-                <Github className="w-5 h-5" />
-              </a>
-              <a href="#" className="text-gray-400 hover:text-pink-400 transition-colors">
-                <Linkedin className="w-5 h-5" />
-              </a>
+            <div className="mt-6 flex gap-2">
+              {socials.map(({ label, icon: Icon }) => (
+                <a
+                  key={label}
+                  href="#"
+                  aria-label={label}
+                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/[0.08] bg-white/[0.03] text-muted-foreground transition-colors hover:border-brand-rose/40 hover:text-brand-rose"
+                >
+                  <Icon className="h-4 w-4" />
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Product */}
-          <div>
-            <h3 className="font-semibold mb-4 text-white">Product</h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link to="/marketplace" className="text-gray-300 hover:text-pink-400 transition-colors">Marketplace</Link></li>
-              <li><Link to="/features" className="text-gray-300 hover:text-pink-400 transition-colors">Features</Link></li>
-              <li><Link to="/pricing" className="text-gray-300 hover:text-pink-400 transition-colors">Pricing</Link></li>
-              <li><Link to="/integrations" className="text-gray-300 hover:text-pink-400 transition-colors">Integrations</Link></li>
-            </ul>
-          </div>
-
-          {/* For Creators */}
-          <div>
-            <h3 className="font-semibold mb-4 text-white">For Creators</h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link to="/creators" className="text-gray-300 hover:text-pink-400 transition-colors">Get Started</Link></li>
-              <li><Link to="/resources" className="text-gray-300 hover:text-pink-400 transition-colors">Resources</Link></li>
-              <li><Link to="/community" className="text-gray-300 hover:text-pink-400 transition-colors">Community</Link></li>
-              <li><Link to="/case-studies" className="text-gray-300 hover:text-pink-400 transition-colors">Case Studies</Link></li>
-            </ul>
-          </div>
-
-          {/* Support */}
-          <div>
-            <h3 className="font-semibold mb-4 text-white">Support</h3>
-            <ul className="space-y-2 text-sm">
-              <li><Link to="/help" className="text-gray-300 hover:text-pink-400 transition-colors">Help Center</Link></li>
-              <li><Link to="/contact" className="text-gray-300 hover:text-pink-400 transition-colors">Contact Us</Link></li>
-              <li><Link to="/privacy" className="text-gray-300 hover:text-pink-400 transition-colors">Privacy Policy</Link></li>
-              <li><Link to="/terms" className="text-gray-300 hover:text-pink-400 transition-colors">Terms of Service</Link></li>
-            </ul>
-          </div>
+          {columns.map((column) => (
+            <div key={column.title} className="md:col-span-2">
+              <h3 className="text-xs font-semibold uppercase tracking-[0.18em] text-foreground/60">{column.title}</h3>
+              <ul className="mt-5 space-y-3 text-sm">
+                {column.links.map((link) => (
+                  <li key={link.label}>
+                    <Link to={link.to} className="text-muted-foreground transition-colors hover:text-foreground">
+                      {link.label}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          ))}
         </div>
 
-        <div className="border-t border-gray-800 mt-8 pt-8 flex flex-col md:flex-row justify-between items-center">
-          <p className="text-gray-300 text-sm">
-            © 2024 KarmKosh. All rights reserved.
-          </p>
-          <div className="flex items-center space-x-4 mt-4 md:mt-0">
-            <span className="text-sm text-gray-300">Made in India 🇮🇳</span>
-          </div>
+        <div className="mt-14 flex flex-col items-center justify-between gap-4 border-t border-white/[0.06] pt-8 text-sm text-muted-foreground md:flex-row">
+          <p>© {new Date().getFullYear()} KarmKosh. All rights reserved.</p>
+          <p>Made in India 🇮🇳</p>
         </div>
       </div>
     </footer>

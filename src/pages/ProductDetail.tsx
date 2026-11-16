@@ -14,8 +14,12 @@ import {
   CheckCircle,
   Globe,
   Shield,
-  Award
+  Award,
+  MessageSquare
 } from "lucide-react";
+import { BackButton } from "@/components/BackButton";
+import { ProductCover } from "@/components/brand/ProductCover";
+import { EmptyState } from "@/components/brand/EmptyState";
 import { useToast } from "@/hooks/use-toast";
 
 export default function ProductDetail() {
@@ -99,229 +103,245 @@ export default function ProductDetail() {
     });
   };
 
+  const includes = [
+    "Lifetime access",
+    "Certificate of completion",
+    "Access on mobile and desktop",
+    "Downloadable resources",
+  ];
+
+  const instructorStats = [
+    { label: "Students", value: "45,230" },
+    { label: "Courses", value: "12" },
+    { label: "Reviews", value: "8,945" },
+    { label: "Rating", value: "4.7/5" },
+  ];
+
+  const discount = Math.round((1 - product.price / product.originalPrice) * 100);
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-pink-950">
-      {/* Hero Section */}
-      <div className="bg-gray-900/80 backdrop-blur-sm text-white py-12 border-b border-gray-800">
-        <div className="container mx-auto px-4">
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-            <div className="lg:col-span-2">
-              <div className="mb-4">
-                <Badge className="mb-2 bg-pink-600 text-white hover:bg-pink-700">Bestseller</Badge>
-                <h1 className="text-4xl font-bold mb-4 text-white">{product.title}</h1>
-                <p className="text-xl text-gray-300 mb-6">{product.description}</p>
+    <div className="pb-24 pt-8 md:pt-12">
+      <div className="container mx-auto px-4">
+        <BackButton to="/marketplace" className="-ml-2 mb-6" />
+
+        <div className="grid grid-cols-1 gap-10 lg:grid-cols-3 lg:gap-12">
+          {/* Main column */}
+          <div className="lg:col-span-2">
+            <Badge>Bestseller</Badge>
+            <h1 className="display mt-5 text-5xl text-foreground md:text-6xl">{product.title}</h1>
+            <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
+              {product.description}
+            </p>
+
+            <div className="mt-7 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
+              <div className="flex items-center gap-2">
+                <div className="flex gap-0.5">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="h-4 w-4 fill-brand-gold text-brand-gold" />
+                  ))}
+                </div>
+                <span className="tabular font-semibold text-foreground">{product.rating}</span>
+                <span className="text-muted-foreground">({product.reviews.toLocaleString("en-IN")} reviews)</span>
               </div>
-              
-              <div className="flex items-center gap-6 mb-6">
-                <div className="flex items-center gap-2">
-                  <div className="flex">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-5 h-5 text-yellow-400 fill-current" />
-                    ))}
-                  </div>
-                  <span className="font-semibold text-white">{product.rating}</span>
-                  <span className="text-gray-300">({product.reviews} reviews)</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Users className="w-5 h-5 text-gray-300" />
-                  <span className="text-gray-300">{product.students.toLocaleString()} students</span>
-                </div>
+              <div className="flex items-center gap-2 text-muted-foreground">
+                <Users className="h-4 w-4" />
+                <span>{product.students.toLocaleString("en-IN")} students</span>
               </div>
-              
-              <div className="flex items-center gap-4 text-sm text-gray-300">
-                <div className="flex items-center gap-2">
-                  <Clock className="w-4 h-4" />
-                  <span>{product.duration} total</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Play className="w-4 h-4" />
-                  <span>{product.lessons} lessons</span>
-                </div>
-                <div className="flex items-center gap-2">
-                  <Globe className="w-4 h-4" />
-                  <span>{product.language}</span>
-                </div>
-              </div>
-              
-              <p className="text-gray-300 mt-4">Created by <span className="text-white font-semibold">{product.creator}</span></p>
             </div>
-            
-            {/* Purchase Card */}
-            <div className="lg:col-span-1">
-              <Card className="sticky top-4 bg-gray-900/80 border-gray-700 backdrop-blur-sm">
-                <CardHeader>
-                  <div className="aspect-video bg-gray-800 rounded-lg mb-4 flex items-center justify-center">
-                    <Play className="w-12 h-12 text-gray-400" />
+
+            <dl className="surface mt-8 grid grid-cols-1 divide-y divide-white/[0.07] sm:grid-cols-3 sm:divide-x sm:divide-y-0">
+              {[
+                { icon: Clock, label: "Duration", value: `${product.duration} total` },
+                { icon: Play, label: "Lessons", value: `${product.lessons} lessons` },
+                { icon: Globe, label: "Language", value: product.language },
+              ].map((item) => (
+                <div key={item.label} className="flex items-center gap-3 px-5 py-4">
+                  <item.icon className="h-4 w-4 shrink-0 text-brand-rose" strokeWidth={1.75} />
+                  <div>
+                    <dt className="text-[0.65rem] font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                      {item.label}
+                    </dt>
+                    <dd className="text-sm font-medium text-foreground">{item.value}</dd>
                   </div>
-                  <div className="flex items-center gap-4">
-                    <span className="text-3xl font-bold text-white">₹{product.price}</span>
-                    <span className="text-lg text-gray-500 line-through">₹{product.originalPrice}</span>
-                    <Badge variant="destructive" className="bg-pink-600 text-white hover:bg-pink-700">40% OFF</Badge>
-                  </div>
-                </CardHeader>
-                <CardContent className="space-y-4">
-                  <Button onClick={handlePurchase} className="w-full text-lg py-6 bg-pink-600 hover:bg-pink-700 text-white">
-                    Buy Now
-                  </Button>
-                  <Button variant="outline" className="w-full border-pink-500/50 text-pink-200 hover:bg-pink-500/20 hover:text-white hover:border-pink-400">
-                    Add to Cart
-                  </Button>
-                  
-                  <div className="text-center text-sm text-gray-400">
-                    <Shield className="w-4 h-4 inline mr-1" />
-                    30-day money-back guarantee
-                  </div>
-                  
-                  <div className="space-y-2 text-sm">
-                    <p className="font-semibold text-gray-200">This course includes:</p>
-                    <div className="space-y-1">
-                      <div className="flex items-center gap-2">
-                        <CheckCircle className="w-4 h-4 text-pink-400" />
-                        <span className="text-gray-300">Lifetime access</span>
+                </div>
+              ))}
+            </dl>
+
+            <p className="mt-6 text-sm text-muted-foreground">
+              Created by <span className="font-semibold text-foreground">{product.creator}</span>
+            </p>
+
+            {/* Content tabs */}
+            <Tabs defaultValue="overview" className="mt-12">
+              <div className="-mx-4 overflow-x-auto px-4">
+                <TabsList>
+                  <TabsTrigger value="overview">Overview</TabsTrigger>
+                  <TabsTrigger value="curriculum">Curriculum</TabsTrigger>
+                  <TabsTrigger value="reviews">Reviews</TabsTrigger>
+                  <TabsTrigger value="instructor">Instructor</TabsTrigger>
+                </TabsList>
+              </div>
+
+              <TabsContent value="overview" className="space-y-5">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>What you'll learn</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="grid grid-cols-1 gap-x-8 gap-y-3.5 sm:grid-cols-2">
+                      {product.whatYouLearn.map((item, index) => (
+                        <div key={index} className="flex items-start gap-3">
+                          <CheckCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-brand-rose" />
+                          <span className="text-sm text-foreground/85">{item}</span>
+                        </div>
+                      ))}
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Requirements</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <ul className="space-y-3">
+                      {product.requirements.map((req, index) => (
+                        <li key={index} className="flex items-start gap-3">
+                          <span className="mt-2 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-brand-gold" />
+                          <span className="text-sm text-foreground/85">{req}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="curriculum">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Course Curriculum</CardTitle>
+                    <CardDescription>
+                      {product.lessons} lectures • {product.duration} total length
+                    </CardDescription>
+                  </CardHeader>
+                  <CardContent>
+                    <ol className="divide-y divide-white/[0.07]">
+                      {product.curriculum.map((section, index) => (
+                        <li key={index} className="flex items-center gap-5 py-4 first:pt-0 last:pb-0">
+                          <span className="display text-gradient w-9 shrink-0 text-3xl">
+                            {String(index + 1).padStart(2, "0")}
+                          </span>
+                          <div className="min-w-0 flex-1">
+                            <h3 className="font-semibold text-foreground">{section.section}</h3>
+                            <p className="mt-0.5 text-sm text-muted-foreground">
+                              Learn the fundamentals and advanced concepts
+                            </p>
+                          </div>
+                          <span className="tabular shrink-0 text-right text-xs text-muted-foreground">
+                            {section.lessons} lessons
+                            <br />
+                            {section.duration}
+                          </span>
+                        </li>
+                      ))}
+                    </ol>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="reviews">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>Student Reviews</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <EmptyState
+                      icon={MessageSquare}
+                      title="Reviews"
+                      description="Reviews section would display student feedback here"
+                    />
+                  </CardContent>
+                </Card>
+              </TabsContent>
+
+              <TabsContent value="instructor">
+                <Card>
+                  <CardHeader>
+                    <CardTitle>About the Instructor</CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <div className="flex flex-col items-start gap-5 sm:flex-row">
+                      <div className="icon-tile h-16 w-16 rounded-full">
+                        <Award className="h-7 w-7" strokeWidth={1.5} />
                       </div>
-                      <div className="flex items-center gap-2">
-                        <CheckCircle className="w-4 h-4 text-pink-400" />
-                        <span className="text-gray-300">Certificate of completion</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <CheckCircle className="w-4 h-4 text-pink-400" />
-                        <span className="text-gray-300">Access on mobile and desktop</span>
-                      </div>
-                      <div className="flex items-center gap-2">
-                        <CheckCircle className="w-4 h-4 text-pink-400" />
-                        <span className="text-gray-300">Downloadable resources</span>
+                      <div className="flex-1">
+                        <h3 className="display text-3xl text-foreground">{product.creator}</h3>
+                        <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                          Full-stack developer with 8+ years of experience. Passionate about teaching and helping
+                          others learn to code.
+                        </p>
+                        <dl className="mt-6 grid grid-cols-2 gap-4 sm:grid-cols-4">
+                          {instructorStats.map((stat) => (
+                            <div key={stat.label}>
+                              <dd className="tabular text-xl font-semibold text-foreground">{stat.value}</dd>
+                              <dt className="mt-0.5 text-xs uppercase tracking-[0.14em] text-muted-foreground">
+                                {stat.label}
+                              </dt>
+                            </div>
+                          ))}
+                        </dl>
                       </div>
                     </div>
-                  </div>
-                </CardContent>
-              </Card>
+                  </CardContent>
+                </Card>
+              </TabsContent>
+            </Tabs>
+          </div>
+
+          {/* Purchase card */}
+          <div className="lg:col-span-1">
+            <div className="gradient-frame p-5 lg:sticky lg:top-24">
+              <ProductCover title={product.title} category="Course" />
+              <div className="mt-6 flex flex-wrap items-baseline gap-3">
+                <span className="tabular text-4xl font-semibold tracking-tight text-foreground">
+                  ₹{product.price.toLocaleString("en-IN")}
+                </span>
+                <span className="tabular text-base text-muted-foreground line-through">
+                  ₹{product.originalPrice.toLocaleString("en-IN")}
+                </span>
+                <Badge>{discount}% OFF</Badge>
+              </div>
+
+              <div className="mt-6 space-y-3">
+                <Button onClick={handlePurchase} size="lg" className="w-full">
+                  Buy Now
+                </Button>
+                <Button variant="outline" size="lg" className="w-full">
+                  Add to Cart
+                </Button>
+              </div>
+
+              <p className="mt-4 flex items-center justify-center gap-1.5 text-xs text-muted-foreground">
+                <Shield className="h-3.5 w-3.5" />
+                30-day money-back guarantee
+              </p>
+
+              <div className="hairline my-6" />
+
+              <p className="text-xs font-semibold uppercase tracking-[0.16em] text-muted-foreground">
+                This course includes
+              </p>
+              <ul className="mt-4 space-y-3 text-sm">
+                {includes.map((item) => (
+                  <li key={item} className="flex items-center gap-3 text-foreground/85">
+                    <CheckCircle className="h-4 w-4 text-brand-rose" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
         </div>
-      </div>
-
-      {/* Content Tabs */}
-      <div className="container mx-auto px-4 py-8">
-        <Tabs defaultValue="overview" className="space-y-6">
-          <TabsList className="grid w-full grid-cols-4 bg-gray-900/80 border-gray-700">
-            <TabsTrigger value="overview" className="text-gray-300 data-[state=active]:bg-pink-600 data-[state=active]:text-white">Overview</TabsTrigger>
-            <TabsTrigger value="curriculum" className="text-gray-300 data-[state=active]:bg-pink-600 data-[state=active]:text-white">Curriculum</TabsTrigger>
-            <TabsTrigger value="reviews" className="text-gray-300 data-[state=active]:bg-pink-600 data-[state=active]:text-white">Reviews</TabsTrigger>
-            <TabsTrigger value="instructor" className="text-gray-300 data-[state=active]:bg-pink-600 data-[state=active]:text-white">Instructor</TabsTrigger>
-          </TabsList>
-
-          <TabsContent value="overview">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-              <Card className="bg-gray-900/80 border-gray-700 backdrop-blur-sm">
-                <CardHeader>
-                  <CardTitle className="text-white">What you'll learn</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <div className="grid grid-cols-1 gap-3">
-                    {product.whatYouLearn.map((item, index) => (
-                      <div key={index} className="flex items-start gap-3">
-                        <CheckCircle className="w-5 h-5 text-pink-400 mt-0.5 flex-shrink-0" />
-                        <span className="text-sm text-gray-300">{item}</span>
-                      </div>
-                    ))}
-                  </div>
-                </CardContent>
-              </Card>
-              
-              <Card className="bg-gray-900/80 border-gray-700 backdrop-blur-sm">
-                <CardHeader>
-                  <CardTitle className="text-white">Requirements</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <ul className="space-y-2">
-                    {product.requirements.map((req, index) => (
-                      <li key={index} className="flex items-start gap-3">
-                        <div className="w-2 h-2 bg-gray-400 rounded-full mt-2 flex-shrink-0" />
-                        <span className="text-sm text-gray-300">{req}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </CardContent>
-              </Card>
-            </div>
-          </TabsContent>
-
-          <TabsContent value="curriculum">
-            <Card className="bg-gray-900/80 border-gray-700 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-white">Course Curriculum</CardTitle>
-                <CardDescription className="text-gray-400">
-                  {product.lessons} lectures • {product.duration} total length
-                </CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  {product.curriculum.map((section, index) => (
-                    <div key={index} className="border border-gray-700 bg-gray-800/50 rounded-lg p-4">
-                      <div className="flex justify-between items-center mb-2">
-                        <h3 className="font-semibold text-white">{section.section}</h3>
-                        <span className="text-sm text-gray-400">
-                          {section.lessons} lessons • {section.duration}
-                        </span>
-                      </div>
-                      <div className="text-sm text-gray-400">
-                        Learn the fundamentals and advanced concepts
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="reviews">
-            <Card className="bg-gray-900/80 border-gray-700 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-white">Student Reviews</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="text-center py-8 text-gray-400">
-                  Reviews section would display student feedback here
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-
-          <TabsContent value="instructor">
-            <Card className="bg-gray-900/80 border-gray-700 backdrop-blur-sm">
-              <CardHeader>
-                <CardTitle className="text-white">About the Instructor</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-start gap-4">
-                  <div className="w-20 h-20 bg-gray-700 rounded-full flex items-center justify-center">
-                    <Award className="w-8 h-8 text-gray-400" />
-                  </div>
-                  <div>
-                    <h3 className="text-xl font-semibold mb-2 text-white">{product.creator}</h3>
-                    <p className="text-gray-300 mb-4">
-                      Full-stack developer with 8+ years of experience. Passionate about teaching and helping others learn to code.
-                    </p>
-                    <div className="grid grid-cols-2 gap-4 text-sm">
-                      <div>
-                        <span className="font-semibold text-gray-200">Students:</span> <span className="text-gray-400">45,230</span>
-                      </div>
-                      <div>
-                        <span className="font-semibold text-gray-200">Courses:</span> <span className="text-gray-400">12</span>
-                      </div>
-                      <div>
-                        <span className="font-semibold text-gray-200">Reviews:</span> <span className="text-gray-400">8,945</span>
-                      </div>
-                      <div>
-                        <span className="font-semibold text-gray-200">Rating:</span> <span className="text-gray-400">4.7/5</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </CardContent>
-            </Card>
-          </TabsContent>
-        </Tabs>
       </div>
     </div>
   );

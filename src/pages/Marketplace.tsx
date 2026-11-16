@@ -1,24 +1,32 @@
-
 import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { 
-  Search, 
-  Filter, 
-  Star, 
-  Play,
-  Clock,
-  Users,
-  SlidersHorizontal
-} from "lucide-react";
-import { Link } from "react-router-dom";
+import { Search, Star, Clock, Users, SlidersHorizontal, ArrowUpRight, SearchX, PlayCircle } from "lucide-react";
+import { ProductCover } from "@/components/brand/ProductCover";
+import { EmptyState } from "@/components/brand/EmptyState";
+
+const categories = [
+  { value: "all", label: "All Categories" },
+  { value: "programming", label: "Programming" },
+  { value: "design", label: "Design" },
+  { value: "marketing", label: "Marketing" },
+  { value: "finance", label: "Finance" },
+  { value: "photography", label: "Photography" },
+  { value: "business", label: "Business" },
+  { value: "health", label: "Health" },
+];
 
 export default function Marketplace() {
+  const [searchParams] = useSearchParams();
+  const initialCategory = searchParams.get("category") ?? "all";
+
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedCategory, setSelectedCategory] = useState("all");
+  const [selectedCategory, setSelectedCategory] = useState(
+    categories.some((category) => category.value === initialCategory) ? initialCategory : "all",
+  );
   const [priceFilter, setPriceFilter] = useState("all");
   const [sortBy, setSortBy] = useState("popular");
 
@@ -38,210 +46,191 @@ export default function Marketplace() {
       category: "Health",
       bestseller: false,
       updated: "2024-01-15",
-      url: "https://preview--balance-boost-blueprint.lovable.app/"
-    }
+      url: "https://preview--balance-boost-blueprint.lovable.app/",
+    },
   ];
 
-  const categories = [
-    { value: "all", label: "All Categories" },
-    { value: "programming", label: "Programming" },
-    { value: "design", label: "Design" },
-    { value: "marketing", label: "Marketing" },
-    { value: "finance", label: "Finance" },
-    { value: "photography", label: "Photography" },
-    { value: "business", label: "Business" },
-    { value: "health", label: "Health" }
-  ];
+  const filteredProducts = products.filter((product) => {
+    const matchesSearch =
+      product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.creator.toLowerCase().includes(searchQuery.toLowerCase());
+    const matchesCategory = selectedCategory === "all" || product.category.toLowerCase() === selectedCategory;
+    const matchesPrice =
+      priceFilter === "all" ||
+      (priceFilter === "free" && product.price === 0) ||
+      (priceFilter === "under-2000" && product.price < 2000) ||
+      (priceFilter === "2000-5000" && product.price >= 2000 && product.price <= 5000) ||
+      (priceFilter === "above-5000" && product.price > 5000);
 
-  const filteredProducts = products.filter(product => {
-    const matchesSearch = product.title.toLowerCase().includes(searchQuery.toLowerCase()) ||
-                         product.creator.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory = selectedCategory === "all" || 
-                           product.category.toLowerCase() === selectedCategory;
-    const matchesPrice = priceFilter === "all" ||
-                        (priceFilter === "free" && product.price === 0) ||
-                        (priceFilter === "under-2000" && product.price < 2000) ||
-                        (priceFilter === "2000-5000" && product.price >= 2000 && product.price <= 5000) ||
-                        (priceFilter === "above-5000" && product.price > 5000);
-    
     return matchesSearch && matchesCategory && matchesPrice;
   });
 
+  const clearFilters = () => {
+    setSearchQuery("");
+    setSelectedCategory("all");
+    setPriceFilter("all");
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-pink-950 py-8">
+    <div className="pb-24 pt-12 md:pt-16">
       <div className="container mx-auto px-4">
         {/* Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl font-bold mb-2 text-white">Discover Courses</h1>
-          <p className="text-gray-300">Learn from India's best creators and experts</p>
+        <div className="mb-10 max-w-2xl">
+          <p className="eyebrow mb-4">Marketplace</p>
+          <h1 className="display text-5xl text-foreground md:text-6xl">
+            Discover <span className="text-gradient italic">Courses</span>
+          </h1>
+          <p className="mt-4 text-base text-muted-foreground md:text-lg">
+            Learn from India's best creators and experts
+          </p>
         </div>
 
-        {/* Search and Filters */}
-        <div className="bg-gray-900/80 backdrop-blur-sm border border-gray-700 rounded-lg shadow-sm p-6 mb-8">
-          <div className="flex flex-col lg:flex-row gap-4">
-            {/* Search */}
-            <div className="flex-1 relative">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+        {/* Search and filters */}
+        <div className="surface mb-8 p-3">
+          <div className="flex flex-col gap-3 lg:flex-row">
+            <div className="relative flex-1">
+              <Search className="pointer-events-none absolute left-4 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
               <Input
+                aria-label="Search courses"
                 placeholder="Search courses, creators, or topics..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="pl-10 bg-gray-800 border-gray-600 text-white placeholder-gray-400 focus:border-pink-500"
+                className="pl-11"
               />
             </div>
-            
-            {/* Category Filter */}
+
             <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-              <SelectTrigger className="w-full lg:w-48 bg-gray-800 border-gray-600 text-white">
+              <SelectTrigger className="w-full lg:w-48" aria-label="Category">
                 <SelectValue placeholder="Category" />
               </SelectTrigger>
-              <SelectContent className="bg-gray-800 border-gray-600">
+              <SelectContent>
                 {categories.map((category) => (
-                  <SelectItem key={category.value} value={category.value} className="text-white hover:bg-gray-700">
+                  <SelectItem key={category.value} value={category.value}>
                     {category.label}
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
-            
-            {/* Price Filter */}
+
             <Select value={priceFilter} onValueChange={setPriceFilter}>
-              <SelectTrigger className="w-full lg:w-48 bg-gray-800 border-gray-600 text-white">
+              <SelectTrigger className="w-full lg:w-44" aria-label="Price">
                 <SelectValue placeholder="Price" />
               </SelectTrigger>
-              <SelectContent className="bg-gray-800 border-gray-600">
-                <SelectItem value="all" className="text-white hover:bg-gray-700">All Prices</SelectItem>
-                <SelectItem value="free" className="text-white hover:bg-gray-700">Free</SelectItem>
-                <SelectItem value="under-2000" className="text-white hover:bg-gray-700">Under ₹2,000</SelectItem>
-                <SelectItem value="2000-5000" className="text-white hover:bg-gray-700">₹2,000 - ₹5,000</SelectItem>
-                <SelectItem value="above-5000" className="text-white hover:bg-gray-700">Above ₹5,000</SelectItem>
+              <SelectContent>
+                <SelectItem value="all">All Prices</SelectItem>
+                <SelectItem value="free">Free</SelectItem>
+                <SelectItem value="under-2000">Under ₹2,000</SelectItem>
+                <SelectItem value="2000-5000">₹2,000 - ₹5,000</SelectItem>
+                <SelectItem value="above-5000">Above ₹5,000</SelectItem>
               </SelectContent>
             </Select>
-            
-            {/* Sort */}
+
             <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="w-full lg:w-48 bg-gray-800 border-gray-600 text-white">
+              <SelectTrigger className="w-full lg:w-48" aria-label="Sort by">
                 <SelectValue placeholder="Sort by" />
               </SelectTrigger>
-              <SelectContent className="bg-gray-800 border-gray-600">
-                <SelectItem value="popular" className="text-white hover:bg-gray-700">Most Popular</SelectItem>
-                <SelectItem value="newest" className="text-white hover:bg-gray-700">Newest</SelectItem>
-                <SelectItem value="rating" className="text-white hover:bg-gray-700">Highest Rated</SelectItem>
-                <SelectItem value="price-low" className="text-white hover:bg-gray-700">Price: Low to High</SelectItem>
-                <SelectItem value="price-high" className="text-white hover:bg-gray-700">Price: High to Low</SelectItem>
+              <SelectContent>
+                <SelectItem value="popular">Most Popular</SelectItem>
+                <SelectItem value="newest">Newest</SelectItem>
+                <SelectItem value="rating">Highest Rated</SelectItem>
+                <SelectItem value="price-low">Price: Low to High</SelectItem>
+                <SelectItem value="price-high">Price: High to Low</SelectItem>
               </SelectContent>
             </Select>
           </div>
         </div>
 
         {/* Results */}
-        <div className="flex justify-between items-center mb-6">
-          <p className="text-gray-300">
-            Showing {filteredProducts.length} of {products.length} courses
+        <div className="mb-6 flex items-center justify-between">
+          <p className="text-sm text-muted-foreground">
+            Showing <span className="font-semibold text-foreground">{filteredProducts.length}</span> of{" "}
+            {products.length} courses
           </p>
-          <Button variant="outline" size="sm" className="border-pink-500/50 text-pink-200 hover:bg-pink-500/20 hover:text-white hover:border-pink-400">
-            <SlidersHorizontal className="w-4 h-4 mr-2" />
+          <Button variant="outline" size="sm">
+            <SlidersHorizontal />
             More Filters
           </Button>
         </div>
 
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {/* Products grid */}
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
           {filteredProducts.map((product) => (
-            <div key={product.id}>
-              <Card className="hover:shadow-lg hover:shadow-pink-500/20 transition-all duration-300 hover:scale-105 hover:border-pink-500 hover:border-2 bg-gray-900/80 border-gray-700 backdrop-blur-sm cursor-pointer h-full">
-                <div className="relative">
-                  <div className="aspect-video bg-gray-800 rounded-t-lg flex items-center justify-center">
-                    <Play className="w-12 h-12 text-gray-400" />
-                  </div>
-                  {product.bestseller && (
-                    <Badge className="absolute top-2 left-2 bg-pink-600 text-white hover:bg-pink-700">
-                      Bestseller
-                    </Badge>
-                  )}
-                  <Badge className="absolute top-2 right-2 bg-pink-500/20 text-pink-200 border-pink-500/30" variant="secondary">
-                    {product.category}
+            <article key={product.id} className="surface surface-hover group flex h-full flex-col p-3">
+              <div className="relative">
+                <ProductCover title={product.title} category={product.category} />
+                {product.bestseller && <Badge className="absolute right-3 top-3">Bestseller</Badge>}
+                <PlayCircle
+                  aria-hidden
+                  strokeWidth={1.25}
+                  className="absolute bottom-4 right-4 h-9 w-9 text-white/70 transition-transform duration-300 group-hover:scale-110"
+                />
+              </div>
+
+              <div className="flex flex-1 flex-col px-3 pb-3 pt-5">
+                <h2 className="line-clamp-2 text-lg font-semibold leading-snug tracking-tight text-foreground">
+                  {product.title}
+                </h2>
+                <p className="mt-1 text-sm text-muted-foreground">by {product.creator}</p>
+
+                <div className="mt-4 flex flex-wrap items-center gap-x-4 gap-y-2 text-xs text-muted-foreground">
+                  <span className="flex items-center gap-1.5">
+                    <Star className="h-3.5 w-3.5 fill-brand-gold text-brand-gold" />
+                    <span className="font-semibold text-foreground">{product.rating.toFixed(1)}</span>({product.reviews})
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <Users className="h-3.5 w-3.5" />
+                    {product.students}
+                  </span>
+                  <span className="flex items-center gap-1.5">
+                    <Clock className="h-3.5 w-3.5" />
+                    {product.duration}
+                  </span>
+                </div>
+
+                <div className="mt-4 flex items-center gap-2">
+                  <Badge variant="outline">{product.level}</Badge>
+                  <Badge variant="outline">
+                    {product.lessons} {product.lessons === 1 ? "lesson" : "lessons"}
                   </Badge>
                 </div>
-                
-                <CardHeader className="pb-2">
-                  <CardTitle className="text-lg line-clamp-2 h-14 text-white">{product.title}</CardTitle>
-                  <CardDescription className="text-gray-400">by {product.creator}</CardDescription>
-                  
-                  <div className="flex items-center gap-2 text-sm">
-                    <div className="flex items-center gap-1">
-                      <Star className="w-4 h-4 text-yellow-400 fill-current" />
-                      <span className="font-medium text-gray-200">{product.rating}</span>
-                    </div>
-                    <span className="text-gray-400">({product.reviews})</span>
-                    <span className="text-gray-500">•</span>
-                    <div className="flex items-center gap-1">
-                      <Users className="w-4 h-4 text-gray-400" />
-                      <span className="text-gray-400">{product.students}</span>
-                    </div>
-                  </div>
-                </CardHeader>
-                
-                <CardContent className="pt-0">
-                  <div className="flex items-center gap-4 text-sm text-gray-400 mb-4">
-                    <div className="flex items-center gap-1">
-                      <Clock className="w-4 h-4" />
-                      <span>{product.duration}</span>
-                    </div>
-                    <span>{product.lessons} lessons</span>
-                    <Badge variant="outline" className="text-xs border-gray-600 text-gray-300">
-                      {product.level}
-                    </Badge>
-                  </div>
-                  
-                  <div className="flex items-center justify-between mb-4">
-                    <div className="flex items-center gap-2">
-                      <span className="text-xl font-bold text-white">
-                        {product.price === 0 ? "Free" : `₹${product.price}`}
-                      </span>
-                      {product.originalPrice > product.price && (
-                        <span className="text-sm text-gray-500 line-through">
-                          ₹{product.originalPrice}
-                        </span>
-                      )}
-                    </div>
+
+                <div className="mt-auto flex items-center justify-between gap-4 pt-6">
+                  <div className="flex items-baseline gap-2">
+                    <span className="tabular text-2xl font-semibold tracking-tight text-foreground">
+                      {product.price === 0 ? "Free" : `₹${product.price.toLocaleString("en-IN")}`}
+                    </span>
                     {product.originalPrice > product.price && (
-                      <Badge variant="destructive" className="text-xs bg-pink-600 text-white hover:bg-pink-700">
-                        {Math.round((1 - product.price / product.originalPrice) * 100)}% OFF
-                      </Badge>
+                      <>
+                        <span className="tabular text-sm text-muted-foreground line-through">
+                          ₹{product.originalPrice.toLocaleString("en-IN")}
+                        </span>
+                        <Badge>{Math.round((1 - product.price / product.originalPrice) * 100)}% OFF</Badge>
+                      </>
                     )}
                   </div>
-                  
-                  <Button 
-                    className="w-full bg-pink-600 hover:bg-pink-700 text-white"
-                    onClick={() => window.open(product.url, '_blank')}
-                  >
+                  <Button size="sm" onClick={() => window.open(product.url, "_blank", "noopener,noreferrer")}>
                     {product.price === 0 ? "Access Free" : "View Product"}
+                    <ArrowUpRight />
                   </Button>
-                </CardContent>
-              </Card>
-            </div>
+                </div>
+              </div>
+            </article>
           ))}
         </div>
 
         {filteredProducts.length === 0 && (
-          <div className="text-center py-16">
-            <h3 className="text-2xl font-semibold mb-4 text-white">No products found</h3>
-            <p className="text-gray-400 mb-8">Try adjusting your search criteria or browse all categories</p>
-            <Button onClick={() => {
-              setSearchQuery("");
-              setSelectedCategory("all");
-              setPriceFilter("all");
-            }} className="bg-pink-600 hover:bg-pink-700 text-white">
-              Clear Filters
-            </Button>
-          </div>
+          <EmptyState
+            icon={SearchX}
+            title="No products found"
+            description="Try adjusting your search criteria or browse all categories"
+            action={<Button onClick={clearFilters}>Clear Filters</Button>}
+          />
         )}
 
-        {/* Load More */}
+        {/* Load more */}
         {filteredProducts.length > 0 && (
-          <div className="text-center mt-12">
-            <Button size="lg" variant="outline" className="border-pink-500/50 text-pink-200 hover:bg-pink-500/20 hover:text-white hover:border-pink-400">
+          <div className="mt-12 text-center">
+            <Button size="lg" variant="outline">
               Load More Courses
             </Button>
           </div>

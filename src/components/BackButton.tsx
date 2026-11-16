@@ -1,7 +1,7 @@
-
 import { ArrowLeft } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 
 interface BackButtonProps {
   to?: string;
@@ -24,7 +24,7 @@ export function BackButton({ to, className }: BackButtonProps) {
       variant="ghost"
       size="sm"
       onClick={handleBack}
-      className={`flex items-center gap-2 text-gray-600 hover:text-gray-900 ${className}`}
+      className={cn("gap-2 text-muted-foreground hover:text-foreground", className)}
     >
       <ArrowLeft className="w-4 h-4" />
       Back
